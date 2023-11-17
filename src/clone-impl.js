@@ -7,13 +7,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import typeInfo from '@haixing_hu/typeinfo';
-import cloneArguments from './clone-arguments';
 import cloneArray from './clone-array';
 import cloneBuffer from './clone-buffer';
+import cloneCopyConstructableObject
+  from './clone-copy-constructable-object';
 import cloneDataView from './clone-data-view';
 import cloneError from './clone-error';
 import cloneMap from './clone-map';
 import cloneObject from './clone-object';
+import clonePrimitiveWrapperObject from './clone-primitive-wrapper-object';
 import clonePromise from './clone-promise';
 import cloneSet from './clone-set';
 import cloneTypedArray from './clone-typed-array';
@@ -41,10 +43,10 @@ function cloneImpl(source, options, cache) {
     case 'number':                  // drop down
     case 'string':                  // drop down
     case 'symbol':                  // drop down
-    case 'function':
+    case 'bigint':                  // drop down
       return source;                // don't need to clone immutable primitives
-    case 'global':
-      return source;                // global object cannot be cloned
+    case 'function':
+      return source;                // we do NOT clone functions, since it could cause too much troubles
     case 'object':                  // drop down
     default:
       break;
@@ -56,19 +58,18 @@ function cloneImpl(source, options, cache) {
     case 'Boolean':                 // drop down
     case 'Number':                  // drop down
     case 'String':
-      return source;                // don't need to clone immutable objects
-    case 'Date':
-      return new Date(source);
+      return clonePrimitiveWrapperObject(source, options, cache);
+    case 'Date':                    // drop down
     case 'RegExp':
-      return new RegExp(source);
+      return cloneCopyConstructableObject(source, options, cache);
     case 'Map':
       return cloneMap(source, options, cache);
     case 'Set':
       return cloneSet(source, options, cache);
-    case 'WeakMap':
+    case 'WeakMap':                 // drop down
     case 'WeakSet':
       return source;                // WeakMap and WeakSet cannot be cloned :(
-    case 'Array':                   // drop down
+    case 'Array':
       return cloneArray(source, options, cache);
     case 'Int8Array':               // drop down
     case 'Uint8Array':              // drop down
@@ -101,7 +102,7 @@ function cloneImpl(source, options, cache) {
     case 'Intl.PluralRules':
     case 'Intl.RelativeTimeFormat':
     case 'Intl.Segmenter':
-      return source;                // Intl objects cannot be cloned :(
+      return source;                // Intl objects are immutable and cannot be cloned
     case 'MapIterator':
     case 'SetIterator':
     case 'ArrayIterator':
@@ -111,15 +112,17 @@ function cloneImpl(source, options, cache) {
       return source;                // iterators cannot be cloned :(
     case 'Error':
       return cloneError(source, options, cache);
-    case 'Arguments':
-      return cloneArguments(source, options, cache);
+    case 'Arguments':               // arguments is a special array like object
+      return cloneArray(source, options, cache);
     case 'Generator':
     case 'AsyncGenerator':
       return source;                // generators cannot be cloned :(
+    case 'GlobalObject':
+      return source;                // global object cannot be cloned :(
     case 'Object':                  // drop down
     default:
       // clone all other objects, including user defined objects
-      return cloneObject(info.constructor, source, options, cache);
+      return cloneObject(source, options, cache);
   }
 }
 

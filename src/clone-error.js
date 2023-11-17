@@ -6,7 +6,6 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-
 import mirror from './mirror';
 
 /**
@@ -31,7 +30,23 @@ function cloneError(source, options, cache) {
   const result = new source.constructor(source.message);
   // add to the cache to avoid circular references
   cache.set(source, result);
-  // set the cause if necessary
+  // copy the non-standard property `fileName` of the source if necessary
+  if (source.fileName) {
+    result.fileName = source.fileName;
+  }
+  // copy the non-standard property `lineNumber` of the source if necessary
+  if (source.lineNumber) {
+    result.lineNumber = source.lineNumber;
+  }
+  // copy the non-standard property `columnNumber` of the source if necessary
+  if (source.columnNumber) {
+    result.columnNumber = source.columnNumber;
+  }
+  // copy the non-standard property `stack` of the source if necessary
+  if (source.stack) {
+    result.stack = source.stack;
+  }
+  // deep clone the `cause` of the source if necessary
   if (source.cause) {
     result.cause = cloneError(source.cause, options, cache);  // recursive call
   }

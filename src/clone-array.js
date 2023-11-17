@@ -6,6 +6,8 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import cloneImpl from './clone-impl';
+import mirror from './mirror';
 
 /**
  * Clones a specified array.
@@ -19,15 +21,17 @@
  * @returns {Array}
  *     The target array.
  * @author Haixing Hu
- * @private
  */
 function cloneArray(source, options, cache) {
-  // console.log('cloneArrayImpl: source = ', source, ', options = ', options);
+  // return early on cache hit
+  if (cache.has(source)) {
+    return cache.get(source);
+  }
   const result = [];
   cache.set(source, result);
   const keys = Reflect.ownKeys(source);
-  // We'll assume the array is well-behaved (dense and not monkeypatched)
-  // If that turns out to be false, we'll fallback to generic code
+  // We'll assume the array is well-behaved (dense and not monkey-patched)
+  // If that turns out to be false, we'll fall back to generic code
   wellBehaved: {                  // eslint-disable-line no-labels
     let i;
     for (i = 0; i < source.length; i++) {
@@ -48,3 +52,5 @@ function cloneArray(source, options, cache) {
   mirror(source, result, options, cache);
   return result;
 }
+
+export default cloneArray;

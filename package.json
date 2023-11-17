@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@haixing_hu/common-logging": "^1.0.3",
-    "@haixing_hu/typeinfo": "^1.0.4"
+    "@haixing_hu/typeinfo": "^1.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
@@ -54,6 +54,7 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@vue/test-utils": "^2.4.2",
     "babel-jest": "^29.7.0",
     "check-es-version": "^1.4.2",
     "core-js": "^3.19.1",
@@ -67,7 +68,8 @@
     "jsdoc": "^3.6.7",
     "jsdom": "^18.1.1",
     "rollup": "^4.1.4",
-    "rollup-plugin-analyzer": "^4.0.0"
+    "rollup-plugin-analyzer": "^4.0.0",
+    "vue": "^3.3.8"
   },
   "packageManager": "yarn@4.0.2"
 }

@@ -20,9 +20,12 @@ import mirror from './mirror';
  * @returns {Object}
  *     The target object.
  * @author Haixing Hu
- * @private
  */
 function cloneObject(source, options, cache) {
+  // return early on cache hit
+  if (cache.has(source)) {
+    return cache.get(source);
+  }
   const prototype = Object.getPrototypeOf(source);
   const result = Object.create(prototype);
   cache.set(source, result);

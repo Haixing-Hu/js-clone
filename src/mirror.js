@@ -58,7 +58,7 @@ function mirror(source, target, options, cache) {
     // use [] will invoke the getter, which is just what we want.
     const value = source[key];
     // eslint-disable-next-line no-use-before-define
-    target[key] = cloneImpl(value, options, cache);
+    target[key] = cloneImpl(value, options, cache); // recursive call
   }
 }
 
