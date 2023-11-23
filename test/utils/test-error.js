@@ -16,8 +16,10 @@ function testError(error) {
     test('simple case', () => {
       expectAlike(clone(error), error);
     });
-    testMonkeyPatched(error);
-    testMonkeyPatchedSelfReference(error);
+    const e1 = clone(error);
+    testMonkeyPatched(e1);
+    const e2 = clone(error)
+    testMonkeyPatchedSelfReference(e2);
   });
 }
 

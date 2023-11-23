@@ -11,6 +11,9 @@ module.exports = {
   verbose: true,
   testMatch: ['**/test/**/*.test.js'],
   testEnvironment: 'jest-environment-jsdom-global',
+  testEnvironmentOptions: {
+    customExportConditions: ["node", "node-addons"],
+  },
   moduleFileExtensions: ['js'],
   transform: {
     '\\.js$': 'babel-jest',
@@ -19,7 +22,7 @@ module.exports = {
   setupFilesAfterEnv: [
     'jest-extended/all',
   ],
-  collectCoverage: false,
+  collectCoverage: true,
   coverageDirectory: './coverage',
   collectCoverageFrom: ['src/**/*.js'],
   coveragePathIgnorePatterns: ['src/impl/'],
