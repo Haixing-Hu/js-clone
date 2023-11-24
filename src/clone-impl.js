@@ -9,8 +9,7 @@
 import typeInfo from '@haixing_hu/typeinfo';
 import cloneArray from './clone-array';
 import cloneBuffer from './clone-buffer';
-import cloneCopyConstructableObject
-  from './clone-copy-constructable-object';
+import cloneCopyConstructableObject from './clone-copy-constructable-object';
 import cloneDataView from './clone-data-view';
 import cloneError from './clone-error';
 import cloneMap from './clone-map';
@@ -50,9 +49,6 @@ function cloneImpl(source, options, cache) {
     case 'object':                  // drop down
     default:
       break;
-  }
-  if (cache.has(source)) {          // return early on cache hit
-    return cache.get(source);
   }
   switch (info.subtype) {
     case 'Boolean':                 // drop down
