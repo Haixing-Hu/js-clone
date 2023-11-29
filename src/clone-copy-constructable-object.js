@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import mirror from './mirror';
+import mirrorProperties from './mirror-properties';
 
 /**
  * Clones a copy-constructable built-in object.
@@ -31,7 +31,7 @@ function cloneCopyConstructableObject(source, options, cache) {
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  mirror(source, result, options, cache);     // involve recursive call
+  mirrorProperties(source, result, options, cache);     // involve recursive call
   return result;
 }
 

@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import mirror from './mirror';
+import mirrorProperties from './mirror-properties';
 
 /**
  * Clones a specified `Error` object.
@@ -51,7 +51,7 @@ function cloneError(source, options, cache) {
     result.cause = cloneError(source.cause, options, cache);  // recursive call
   }
   // copy other monkey patched properties
-  mirror(source, result, options, cache);     // involve recursive call
+  mirrorProperties(source, result, options, cache);     // involve recursive call
   return result;
 }
 

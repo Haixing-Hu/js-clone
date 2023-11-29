@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import cloneImpl from './clone-impl';
-import mirror from './mirror';
+import mirrorProperties from './mirror-properties';
 
 /**
  * Clones a specified set.
@@ -32,7 +32,7 @@ function cloneSet(source, options, cache) {
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  mirror(source, result, options, cache);
+  mirrorProperties(source, result, options, cache);
   // copy all items in the set
   for (const value of source) {
     const newValue = cloneImpl(value, options, cache);

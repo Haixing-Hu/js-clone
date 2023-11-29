@@ -34,7 +34,7 @@ import cloneImpl from './clone-impl';
  * @author Haixing Hu
  * @private
  */
-function mirror(source, target, options, cache) {
+function mirrorProperties(source, target, options, cache) {
   const keys = Reflect.ownKeys(source);
   for (const key of keys) {
     const descriptor = Object.getOwnPropertyDescriptor(source, key);
@@ -60,4 +60,4 @@ function mirror(source, target, options, cache) {
   }
 }
 
-export default mirror;
+export default mirrorProperties;

@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import cloneImpl from './clone-impl';
-import mirror from './mirror';
+import mirrorProperties from './mirror-properties';
 
 /**
  * Clones a specified map.
@@ -32,7 +32,7 @@ function cloneMap(source, options, cache) {
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  mirror(source, result, options, cache);
+  mirrorProperties(source, result, options, cache);
   // copy all entries in the map
   for (const [key, value] of source.entries()) {
     const newKey = cloneImpl(key, options, cache);

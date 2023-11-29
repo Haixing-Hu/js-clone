@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import cloneImpl from './clone-impl';
-import mirror from './mirror';
+import mirrorProperties from './mirror-properties';
 
 /**
  * Clones a specified array.
@@ -49,7 +49,7 @@ function cloneArray(source, options, cache) {
   }
   // Generic fallback
   result.length = 0;
-  mirror(source, result, options, cache);
+  mirrorProperties(source, result, options, cache);
   return result;
 }
 
