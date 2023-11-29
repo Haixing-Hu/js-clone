@@ -44,9 +44,7 @@ function mirror(source, target, options, cache) {
     if ((!options.includeNonEnumerable) && (!descriptor.enumerable)) {
       continue; // ignore non-enumerable properties
     }
-    if ((options.excludeReadonly)
-        && (descriptor.writable !== undefined)
-        && (!descriptor.writable)) {
+    if ((options.excludeReadonly) && (descriptor.writable === false)) {
       continue; // ignore readonly properties
     }
     if (options.includeAccessor && (descriptor.get || descriptor.set)) {

@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@haixing_hu/common-logging": "^1.0.3",
-    "@haixing_hu/typeinfo": "^1.1.0"
+    "@haixing_hu/typeinfo": "^1.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",

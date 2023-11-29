@@ -109,7 +109,7 @@ function cloneImpl(source, options, cache) {
     case 'Error':
       return cloneError(source, options, cache);
     case 'Arguments':               // arguments is a special array like object
-      return cloneArray(source, options, cache);
+      return source;                // arguments cannot be cloned :(
     case 'Generator':
     case 'AsyncGenerator':
       return source;                // generators cannot be cloned :(

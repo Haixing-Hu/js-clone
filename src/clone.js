@@ -22,12 +22,12 @@ import cloneImpl from './clone-impl';
  * - `includeAccessor` - If this options is set to `true`, the cloning algorithm
  *   will clone the accessors of the properties (i.e. getters and setters) from
  *   the source object. The default value of this option is `false`.
- * - `includeNonEnumerable` - If this options is set to `true`, the cloning
- *   algorithm will clone the non-enumerable attributes from the source object.
- *   The default value of this option is `false`.
  * - `excludeReadonly` - If this options is set to `true`, the cloning algorithm
  *   will NOT clone the readonly attributes from the source object. The default
  *   value of this option is `false`.
+ * - `includeNonEnumerable` - If this options is set to `true`, the cloning
+ *   algorithm will clone the non-enumerable attributes from the source object.
+ *   The default value of this option is `false`.
  * - `includeNonConfigurable` - If this options is set to `true`, the cloning
  *   algorithm will clone the non-configurable attributes from the source
  *   object. The default value of this option is `false`.
