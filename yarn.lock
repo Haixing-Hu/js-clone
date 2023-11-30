@@ -1475,8 +1475,9 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:^7.23.3"
     "@babel/preset-env": "npm:^7.23.3"
     "@haixing_hu/common-logging": "npm:^1.0.3"
-    "@haixing_hu/eslint-config": "npm:^1.3.0"
+    "@haixing_hu/eslint-config": "npm:^1.3.1"
     "@haixing_hu/jsdoc-minami": "npm:^1.5.0"
+    "@haixing_hu/naming-style": "npm:^1.0.0"
     "@haixing_hu/rollup-builder": "npm:^1.0.7"
     "@haixing_hu/typeinfo": "npm:^1.3.0"
     "@jest/core": "npm:^29.7.0"
@@ -1504,7 +1505,10 @@ __metadata:
     rollup-plugin-analyzer: "npm:^4.0.0"
     vue: "npm:^3.3.8"
   peerDependencies:
-    "@babel/runtime": "*"
+    "@babel/runtime": ^7.23.0
+    "@haixing_hu/common-logging": ^1.0.3
+    "@haixing_hu/naming-style": ^1.0.0
+    "@haixing_hu/typeinfo": ^1.3.0
   languageName: unknown
   linkType: soft
 
@@ -1517,14 +1521,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/eslint-config@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@haixing_hu/eslint-config@npm:1.3.0"
+"@haixing_hu/eslint-config@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@haixing_hu/eslint-config@npm:1.3.1"
   dependencies:
     eslint: "npm:^8.12.0"
     eslint-config-airbnb-base: "npm:^15.0.0"
     eslint-plugin-import: "npm:^2.28.1"
-  checksum: d16004199136920f172f4543bfa867141c84f6ddf14637b581d644f7852593cab72507291a0fa1c2dc081cceab1a7583902e7f6d75246e6fdef509e1aa4dc1c2
+  checksum: fe8bb8e27f7be4ea3571673915fb6e1aaa46fc8295c7d8f8fae9d0837bd1baf1a6ef16291661fdb6d0b3027d07f29c650819cc31ec6ab81e35626a28db70ef0f
   languageName: node
   linkType: hard
 
@@ -1535,6 +1539,15 @@ __metadata:
     jsdoc: "npm:^4.0.2"
     taffydb: "npm:^2.7.3"
   checksum: 025af1f9db7b50b0881f9e7f1fd8947ff950c8862ed6bd25b8d729d73e61ae16684073b45a754f6d943e4ec534c9b6b84c1a9222907c24f03d3454d2c9d194a5
+  languageName: node
+  linkType: hard
+
+"@haixing_hu/naming-style@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "@haixing_hu/naming-style@npm:1.0.1"
+  peerDependencies:
+    "@babel/runtime": ^7.23.0
+  checksum: 8ac20b83dea9d52ae71933a91542e6b469567b7e21755d6df197b87f410b2be3ca942caa7af42aeafcb847935bb7ac49dcf11793faaf280c766ed3339cf6d4ed
   languageName: node
   linkType: hard
 
