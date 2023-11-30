@@ -122,6 +122,9 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+# generated API documents
+doc/
+
 # yarn 2.x
 .pnp.*
 .yarn/*
