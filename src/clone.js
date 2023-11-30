@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import cloneImpl from './clone-impl';
+import cloneImpl from './impl/clone-impl';
 
 /**
  * Deep clones a value or an object.

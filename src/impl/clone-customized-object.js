@@ -21,7 +21,7 @@ import mirrorProperties from './mirror-properties';
  *     The target object.
  * @author Haixing Hu
  */
-function cloneObject(source, options, cache) {
+function cloneCustomizedObject(source, options, cache) {
   // return early on cache hit
   if (cache.has(source)) {
     return cache.get(source);
@@ -33,4 +33,4 @@ function cloneObject(source, options, cache) {
   return result;
 }
 
-export default cloneObject;
+export default cloneCustomizedObject;
