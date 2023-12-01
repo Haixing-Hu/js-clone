@@ -1,0 +1,307 @@
+# @haixing_hu/clone
+
+[clone] 是一个 JavaScript 库，用于深度克隆 JavaScript 对象。它保持对象及其所有属性的原型，
+并支持自定义克隆钩子函数，允许对指定类型执行特殊的克隆算法。
+
+- **深度克隆**：能够深度克隆任意 JavaScript 对象，包括但不限于简单对象、自定义类的实例、数组、
+  `Map`、`Set`、`Date`、`RegExp`、`Error` 等。
+- **保持原型**：克隆的对象保持原有对象的原型。
+- **循环引用检测**：能够检测循环引用，并防止无限递归。
+- **支持内置对象的自定义属性**：由于 JavaScript 语言的灵活性，对于内置对象，用户可以在该对象
+  上任意设置自定义属性，例如`const str = 'hello'; str.x = 123;`，本函数库能够克隆这些自定
+  义属性。
+- **可设置克隆算法参数**：支持自定义克隆算法参数，通过参数定制克隆算法。
+- **可自定义克隆算法**：支持自定义克隆算法，通过注册钩子函数定制对特定类型的克隆算法。
+- **Vue.js 反应性支持**：兼容 Vue.js 的反应性系统，只克隆可枚举属性。
+
+## <span id="contents">目录</span>
+
+- [安装](#installation)
+- [使用方法](#usage)
+- [API 文档](#api)
+  - [clone(source, [options])](#clone)
+  - [registerCloneHook(hook)](#register-clone-hook)
+  - [unregisterCloneHook(hook)](#unregister-clone-hook)
+  - [cloneImpl(source, options, cache)](#clone-impl)
+  - [copyProperties(source, target, options, cache)](#copy-properties)
+- [示例](#examples)
+  - [深度克隆对象](#clone)
+  - [克隆算法选项](#clone-with-options)
+  - [定制克隆行为](#customize-clone-hook)
+- [许可证](#license)
+- [贡献方式](#contributing)
+- [贡献者](#contributor)
+
+## <span id="installation">安装</span>
+
+此函数库依赖 [typeinfo] 函数库，因此需要先安装 [typeinfo] 函数库。
+
+通过 npm 安装：
+```bash
+npm install @haixing_hu/typeinfo @haixing_hu/clone
+```
+或者通过 `yarn` 安装
+```bash
+yarn add @haixing_hu/typeinfo @haixing_hu/clone
+```
+
+## <span id="usage">使用方法</span>
+
+```js
+class Credential {
+  type = '';
+  number = '';
+}
+class Person {
+  name = '';
+  age = 0;
+  credential = new Credential();
+}
+const obj2 = new Person();
+obj2.name = 'Bill Gates';
+obj2.age = 30;
+obj2.credential.type = 'PASSWORD';
+obj2.credential.number = '111111'
+const copy2 = clone(obj2);
+expect(copy2).toEqual(obj2);
+expect(copy2).not.toBe(obj2);
+expect(copy2).toBeInstanceOf(Person);
+expect(copy2.credential).toBeInstanceOf(Credential);
+```
+
+## <span id="api">API 文档</span>
+
+### <span id="clone">clone(source, [options])</span>
+
+深度克隆一个值或对象。
+
+- `source: any` - 要克隆的值或对象。
+- `options: object` - 克隆算法的选项对象。可能的选项包括：
+    - `includeAccessor: boolean`：若为 `true`，将克隆属性的访问器（即 getter 和 setter）。默认为 `false`。
+    - `excludeReadonly: boolean`：若为 `true`，将不克隆只读属性。默认为 `false`。
+    - `includeNonEnumerable: boolean`：若为 `true`，将克隆非枚举属性。默认为 `false`。
+    - `includeNonConfigurable: boolean`：若为 `true`，将克隆非可配置属性。默认为 `false`。
+
+克隆函数支持对 JavaScript 内置对象的克隆，包括但不限于 primitive 类型、数组、`Map`、`Set`等。
+具体的支持如下：
+
+- primitive 类型 `undefined`、`null`、`boolean`、`number`、`string`、`symbol`、`bigint`：直接返回原始值；
+- 函数类型：要完整实现对函数的 `clone` 会带来很多技术上的麻烦，因此本函数对函数类型的值不做克隆，直接返回原始函数；
+- 对象类型：分为 JavaScript 内置对象和用户对象两种情况：
+  - 普通非容器型内置对象：会返回一个新的对象，和原始对象完全一致，包括用户增加在原始对象上的自定义属性，
+    也会一起被深度克隆；
+  - 内置容器对象，包括`Array`、`Map`、`Set`、`Int8Array`、`BigUint64Array`等：会克隆容器对象
+    本身，同时深度克隆容器对象中的元素；
+  - 弱引用对象，包括：`WeakMap`、`WeakSet`、`WeakRef`等：不可被克隆，直接返回该对象本身；
+  - `Buffer`对象，包括 `ArrayBuffer`、`SharedArrayBuffer`等：会克隆容器对象本身，同时克隆容器对象中的数据；
+  - `Promise`对象：不可被克隆，因此直接返回该对象本身；
+  - [Intl] 内置对象的子对象，包括`Intl.Collator`、`Intl.DateTimeFormat`等：不可被克隆，直接返回该对象本身；
+  - `Iterator` 对象，包括`ArrayIterator`、`MapIterator`、`SetIterator`等：不可被克隆，直接返回该对象本身；
+  - 表示函数参数的 [arguments] 对象：不可被克隆，直接返回该对象本身；
+  - 表示生成器的对象，包括 `Generator`、`AsyncGenerator`：不可被克隆，因此直接返回该对象本身；
+  - [全局对象]：不可被克隆，直接返回该对象本身；
+  - 其他用户自定义对象：深度克隆该对象所有属性，并保持被克隆对象的原型。是否克隆只读属性、不可枚举属性、不可配置属性、
+    访问器属性等，取决于调用 `clone()` 函数的第二个克隆算法选项参数。
+
+### <span id="register-clone-hook">registerCloneHook(hook)</span>
+
+注册一个自定义对象克隆的钩子函数。
+
+- `hook: function` - 钩子函数，其形式应为：
+  ```js
+  function cloneHook(info, obj, options) {};
+  ```
+  其中：
+    - `info: object`：待克隆对象的类型信息，由 [typeInfo()] 函数提供。
+    - `obj: object`：待克隆的对象，保证非空。
+    - `options: object`：克隆算法的选项。
+
+### <span id="unregister-clone-hook">unregisterCloneHook(hook)</span>
+
+注销一个自定义对象克隆的钩子函数。
+
+- `hook: function` - 要注销的钩子函数，其形式和参数与 [registerCloneHook()](#register-clone-hook) 相同。
+
+### <span id="clone-impl">cloneImpl(source, options, cache)</span>
+
+实现了具体的`clone` 算法。这是一个内部函数，可用于实现自定义的克隆钩子函数。
+
+- `source: any` - 待克隆的对象。
+- `options: object` - 克隆算法的选项。
+- `cache: WeakMap` - 用于防止循环引用的对象缓存。
+
+### <span id="copy-properties">copyProperties(source, target, options, cache)</span>
+
+将源对象的属性复制到目标对象。这是一个内部函数，可用于实现自定义的克隆钩子函数。
+
+- `source: any` - 源对象。
+- `target: any` - 目标对象。
+- `options: object` - 克隆算法的选项。
+- `cache: WeakMap` - 用于防止循环引用的对象缓存。
+
+## <span id="examples">示例</span>
+
+### <span id="clone">深度克隆对象</span>
+
+下面的代码例子展示了如何深度克隆一个对象，可以是简单对象，也可以是自定义类的实例。
+```js
+import clone from '@haixing_hu/clone';
+
+const obj1 = { a: 1, b: { c: 2 } };
+const copy1 = clone(obj1);
+expect(copy1).toEqual(obj1);
+expect(copy1).not.toBe(obj1);
+
+class Credential {
+  type = '';
+  number = '';
+}
+class Person {
+  name = '';
+  age = 0;
+  credential = new Credential();
+}
+const obj2 = new Person();
+obj2.name = 'Bill Gates';
+obj2.age = 30;
+obj2.credential.type = 'PASSWORD';
+obj2.credential.number = '111111'
+const copy2 = clone(obj2);
+expect(copy2).toEqual(obj2);
+expect(copy2).not.toBe(obj2);
+expect(copy2).toBeInstanceOf(Person);
+expect(copy2.credential).toBeInstanceOf(Credential);
+```
+
+### <span id="clone-with-options">克隆算法选项</span>
+
+下面的代码例子展示了如何使用自定义的克隆算法选项。具体的选项请参考[API 文档](#api)。
+```js
+const obj = {
+  x: 1,
+  y: 2,
+  _name: 'obj',
+  get z() {
+    return this.x + this.y;
+  },
+  get name() {
+    return this._name;
+  },
+  set name(s) {
+    this._name = s;
+  },
+};
+Object.defineProperties(obj, {
+  r: {
+    value: 'readonly',
+    writable: false,
+    configurable: true,
+    enumerable: true,
+  },
+});
+Object.defineProperties(obj, {
+  nc: {
+    value: 'non-configurable',
+    writable: true,
+    configurable: false,
+    enumerable: true,
+  },
+});
+Object.defineProperties(obj, {
+  ne: {
+    value: 'non-enumerable',
+    writable: true,
+    configurable: true,
+    enumerable: false,
+  },
+});
+
+// clone with default options
+const copy1 = clone(obj);
+expect(copy1.x).toBe(1);
+expect(copy1.y).toBe(2);
+expect(copy1.r).toBe('readonly');
+expect(copy1.z).toBe(3);
+expect(typeof copy1.z).toBe('number');
+expect(copy1.name).toBe('obj');
+expect(typeof copy1.name).toBe('string');
+expect(copy1._name).toBe('obj');
+expect(typeof copy1._name).toBe('string');
+expect('nc' in copy1).toBe(false);
+expect('ne' in copy1).toBe(false);
+
+// clone with customized options
+const options = {
+  includeAccessor: true,
+  excludeReadonly: true,
+  includeNonEnumerable: true,
+  includeNonConfigurable: false,
+};
+const copy2 = clone(obj, options);
+expect(copy2.x).toBe(1);
+expect(copy2.y).toBe(2);
+expect('r' in copy2).toBe(false);
+expect(copy2.z).toBe(3);
+expect(copy2._name).toBe('obj');
+expect(copy2.name).toBe('obj');
+const zd = Object.getOwnPropertyDescriptor(copy2, 'z');
+expect(typeof zd.get).toBe('function');
+expect(typeof zd.set).toBe('undefined');
+expect('value' in zd).toBe(false);
+const nd = Object.getOwnPropertyDescriptor(copy2, 'name');
+expect(typeof nd.get).toBe('function');
+expect(typeof nd.set).toBe('function');
+expect('value' in nd).toBe(false);
+copy2.name = 'xxx';
+expect(copy2.name).toBe('xxx');
+expect(copy2._name).toBe('xxx');
+expect('ne' in copy2).toBe(true);
+expect(copy2.ne).toBe('non-enumerable');
+expect('nc' in copy2).toBe(false);
+```
+
+### <span id="customize-clone-hook">定制克隆行为</span>
+
+```js
+import { registerCloneHook, clone } from '@haixing_hu/clone';
+
+function customCloneHook(info, obj, options) {
+  if (info.constructor === MyCustomClass) {
+    const result = new MyCustomClass();
+    // implements the customized clone algorithm
+    return result;
+  }
+  return null;
+}
+
+registerCloneHook(customCloneHook);
+
+const original = {
+  name: 'original',
+  data: new MyCustomClass(),
+};
+const cloned = clone(original);
+
+unregisterCloneHook(customCloneHook);
+```
+
+## <span id="license">许可证</span>
+
+[clone] 在 Apache 2.0 许可下分发。有关更多详情，请参阅 [LICENSE](LICENSE) 文件。
+
+## <span id="contributing">贡献方式</span>
+
+如果您发现任何问题或有改进建议，请随时在[GitHub仓库]中提出问题或提交拉取请求。
+
+## <span id="contributor">贡献者</span>
+
+- [Haixing Hu](https://github.com/haixing-hu)
+
+
+[typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
+[typeInfo()]: https://npmjs.com/package/@haixing_hu/typeinfo
+[clone]: https://npmjs.com/package/@haixing_hu/clone
+[arguments]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+[Intl]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
+[全局对象]: https://developer.mozilla.org/en-US/docs/Glossary/Global_object
+[GitHub repository]: https://github.com/Haixing-Hu/js-clone

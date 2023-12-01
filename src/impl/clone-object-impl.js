@@ -91,6 +91,8 @@ function cloneObjectImpl(info, source, options, cache) {
     case 'RegExpStringIterator':
     case 'SegmenterStringIterator':
       return source;                // iterators cannot be cloned :(
+    case 'FinalizationRegistry':
+      return source;                // FinalizationRegistry cannot be cloned :(
     case 'Error':
       return cloneError(source, options, cache);
     case 'Arguments':               // arguments is a special array like object
