@@ -8,6 +8,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 import clone from '../src';
 
+/* eslint-disable no-undef */
+
 /**
  * Unit test the `clone()` function to clone FinalizationRegistry.
  *
