@@ -15,7 +15,7 @@ import clone from '../src';
  */
 describe('clone built-in global object', () => {
   test('simple case', () => {
-    const global = Function('return this')();
+    const global = Function('return this')(); // eslint-disable-line no-new-func
     expect(clone(global)).toBe(global);
   });
 });

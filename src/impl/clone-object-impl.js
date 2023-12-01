@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+/* eslint-disable import/no-cycle */
 import cloneArray from './clone-array';
 import cloneBuffer from './clone-buffer';
 import cloneCopyConstructableObject from './clone-copy-constructable-object';

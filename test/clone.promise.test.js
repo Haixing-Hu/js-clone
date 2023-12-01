@@ -27,7 +27,7 @@ describe('clone promises', () => {
     expect(await cloned).toBe(42);
   });
   it('should clone a complex promise chain', async () => {
-    const original = Promise.resolve(10).then(value => value * 2);
+    const original = Promise.resolve(10).then((value) => value * 2);
     const cloned = clone(original);
     expect(await cloned).toBe(20);
   });

@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+/* eslint-disable import/no-cycle */
 import typeInfo from '@haixing_hu/typeinfo';
 import CLONE_HOOKS from './clone-hooks';
 import cloneObjectImpl from './clone-object-impl';

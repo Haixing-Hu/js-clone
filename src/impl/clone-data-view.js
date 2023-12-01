@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+/* eslint-disable import/no-cycle */
 import cloneBuffer from './clone-buffer';
 import copyProperties from './copy-properties';
 

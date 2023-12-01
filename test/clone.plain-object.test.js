@@ -180,7 +180,7 @@ describe('clone plain objects', () => {
     const getterOptions = {
       configurable: true,
       get() { return this.val; },
-    }
+    };
     test('simple case', () => {
       const object = { val: 'got' };
       Object.defineProperty(object, 'getter', getterOptions);

@@ -18,6 +18,7 @@ describe('clone(Error)', () => {
   describe('errors', () => {
     class MyError extends RangeError {
       code = '';
+
       constructor(message, filename, lineNumber, code) {
         super(message, filename, lineNumber);
         this.code = code;

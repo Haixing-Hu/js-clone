@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+/* eslint-disable import/no-cycle */
 import cloneImpl from './clone-impl';
 
 /**

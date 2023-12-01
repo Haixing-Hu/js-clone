@@ -11,6 +11,8 @@ import expectAlike from './utils/expect-alike';
 import testMonkeyPatched from './utils/test-monkey-patched';
 import testMonkeyPatchedSelfReference from './utils/test-monkey-patched-self-reference';
 
+/* eslint-disable prefer-regex-literals */
+
 /**
  * Unit test the `clone()` function to clone built-in copy constructable objects.
  *

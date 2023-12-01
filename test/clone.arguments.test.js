@@ -16,6 +16,7 @@ import clone from '../src';
 describe('clone built-in arguments object', () => {
   test('simple case', () => {
     function foo() {
+      /* eslint-disable-next-line prefer-rest-params */
       expect(clone(arguments)).toBe(arguments);
     }
     foo(1, 2, 3);

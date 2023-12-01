@@ -18,7 +18,7 @@ function testError(error) {
     });
     const e1 = clone(error);
     testMonkeyPatched(e1);
-    const e2 = clone(error)
+    const e2 = clone(error);
     testMonkeyPatchedSelfReference(e2);
   });
 }

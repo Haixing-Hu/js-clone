@@ -6,6 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
+import { BIGINT_EXISTS } from '@haixing_hu/typeinfo';
 import clone from '../src';
 
 /**
@@ -42,12 +43,15 @@ describe('clone immutable primitives', () => {
     const symbol = Symbol('symbol');
     expect(clone(symbol)).toBe(symbol);
   });
-  test('clone(bigint)', () => {
-    expect(clone(0n)).toBe(0n);
-    expect(clone(100n)).toBe(100n);
-    expect(clone(-100n)).toBe(-100n);
-    expect(clone(BigInt(0))).toBe(0n);
-    expect(clone(BigInt(100))).toBe(100n);
-    expect(clone(BigInt(-100))).toBe(-100n);
-  });
+  if (BIGINT_EXISTS) {
+    /* eslint-disable no-undef */
+    test('clone(bigint)', () => {
+      expect(clone(0n)).toBe(0n);
+      expect(clone(100n)).toBe(100n);
+      expect(clone(-100n)).toBe(-100n);
+      expect(clone(BigInt(0))).toBe(0n);
+      expect(clone(BigInt(100))).toBe(100n);
+      expect(clone(BigInt(-100))).toBe(-100n);
+    });
+  }
 });
