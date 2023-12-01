@@ -1,10 +1,18 @@
 # @haixing_hu/clone
 
+[![npm package](https://img.shields.io/npm/v/@haixing_hu/clone.svg)](https://npmjs.com/package/@haixing_hu/clone)
+[![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![English Document](https://img.shields.io/badge/文档-中文版-blue.svg)](README.md)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/js-clone/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/js-clone/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/Haixing-Hu/js-clone/badge.svg?branch=master)](https://coveralls.io/github/Haixing-Hu/js-clone?branch=master)
+
 [clone] 是一个 JavaScript 库，用于深度克隆 JavaScript 对象。它保持对象及其所有属性的原型，
 并支持自定义克隆钩子函数，允许对指定类型执行特殊的克隆算法。
 
-- **深度克隆**：能够深度克隆任意 JavaScript 对象，包括但不限于简单对象、自定义类的实例、数组、
-  `Map`、`Set`、`Date`、`RegExp`、`Error` 等。
+此开源库具有以下特性：
+
+- **深度克隆**：能够深度克隆任意 JavaScript 对象，包括但不限于简单对象、自定义类的实例、
+  `Array`、`Map`、`Set`、`Date`、`RegExp`、`Error`、`Promise` 等。
 - **保持原型**：克隆的对象保持原有对象的原型。
 - **循环引用检测**：能够检测循环引用，并防止无限递归。
 - **支持内置对象的自定义属性**：由于 JavaScript 语言的灵活性，对于内置对象，用户可以在该对象
@@ -94,11 +102,12 @@ expect(copy2.credential).toBeInstanceOf(Credential);
     本身，同时深度克隆容器对象中的元素；
   - 弱引用对象，包括：`WeakMap`、`WeakSet`、`WeakRef`等：不可被克隆，直接返回该对象本身；
   - `Buffer`对象，包括 `ArrayBuffer`、`SharedArrayBuffer`等：会克隆容器对象本身，同时克隆容器对象中的数据；
-  - `Promise`对象：不可被克隆，因此直接返回该对象本身；
+  - `Promise`对象：会克隆一个新的 `Promise` 对象，包括用户增加在原始对象上的自定义属性；
   - [Intl] 内置对象的子对象，包括`Intl.Collator`、`Intl.DateTimeFormat`等：不可被克隆，直接返回该对象本身；
   - `Iterator` 对象，包括`ArrayIterator`、`MapIterator`、`SetIterator`等：不可被克隆，直接返回该对象本身；
   - 表示函数参数的 [arguments] 对象：不可被克隆，直接返回该对象本身；
-  - 表示生成器的对象，包括 `Generator`、`AsyncGenerator`：不可被克隆，因此直接返回该对象本身；
+  - `FinalizationRegistry` 对象：不可被克隆，直接返回该对象本身；
+  - 生成器对象，包括 `Generator`、`AsyncGenerator`：不可被克隆，因此直接返回该对象本身；
   - [全局对象]：不可被克隆，直接返回该对象本身；
   - 其他用户自定义对象：深度克隆该对象所有属性，并保持被克隆对象的原型。是否克隆只读属性、不可枚举属性、不可配置属性、
     访问器属性等，取决于调用 `clone()` 函数的第二个克隆算法选项参数。
