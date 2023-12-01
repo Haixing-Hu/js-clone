@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import cloneImpl from './clone-impl';
-import mirrorProperties from './mirror-properties';
+import copyProperties from './copy-properties';
 
 /**
  * Clones a specified array.
@@ -23,10 +23,6 @@ import mirrorProperties from './mirror-properties';
  * @author Haixing Hu
  */
 function cloneArray(source, options, cache) {
-  // return early on cache hit
-  if (cache.has(source)) {
-    return cache.get(source);
-  }
   const result = [];
   cache.set(source, result);
   const keys = Reflect.ownKeys(source);
@@ -49,7 +45,7 @@ function cloneArray(source, options, cache) {
   }
   // Generic fallback
   result.length = 0;
-  mirrorProperties(source, result, options, cache);
+  copyProperties(source, result, options, cache);
   return result;
 }
 

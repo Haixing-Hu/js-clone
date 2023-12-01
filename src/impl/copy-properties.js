@@ -32,9 +32,8 @@ import cloneImpl from './clone-impl';
  *     The object cache used to prevent circular references.
  * @see https://v2.vuejs.org/v2/guide/reactivity.html
  * @author Haixing Hu
- * @private
  */
-function mirrorProperties(source, target, options, cache) {
+function copyProperties(source, target, options, cache) {
   const keys = Reflect.ownKeys(source);
   for (const key of keys) {
     const descriptor = Object.getOwnPropertyDescriptor(source, key);
@@ -60,4 +59,4 @@ function mirrorProperties(source, target, options, cache) {
   }
 }
 
-export default mirrorProperties;
+export default copyProperties;

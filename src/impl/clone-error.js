@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import mirrorProperties from './mirror-properties';
+import copyProperties from './copy-properties';
 
 /**
  * Clones a specified `Error` object.
@@ -23,10 +23,6 @@ import mirrorProperties from './mirror-properties';
  * @author Haixing Hu
  */
 function cloneError(source, options, cache) {
-  // return early on cache hit
-  if (cache.has(source)) {
-    return cache.get(source);
-  }
   const result = new source.constructor(source.message);
   // add to the cache to avoid circular references
   cache.set(source, result);
@@ -51,7 +47,7 @@ function cloneError(source, options, cache) {
     result.cause = cloneError(source.cause, options, cache);  // recursive call
   }
   // copy other monkey patched properties
-  mirrorProperties(source, result, options, cache);     // involve recursive call
+  copyProperties(source, result, options, cache);     // involve recursive call
   return result;
 }
 

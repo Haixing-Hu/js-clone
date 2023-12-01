@@ -21,10 +21,10 @@ import cloneTypedArray from './clone-typed-array';
 /**
  * The implementation of the `clone` function to clone a general object.
  *
- * @param {any} source
- *     The object to be cloned.
  * @param {Object} info
  *     The type information about the object to be cloned.
+ * @param {any} source
+ *     The object to be cloned.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -33,7 +33,7 @@ import cloneTypedArray from './clone-typed-array';
  *     The deep clone of the specified object.
  * @author Haixing Hu
  */
-function cloneObjectImpl(source, info, options, cache) {
+function cloneObjectImpl(info, source, options, cache) {
   switch (info.subtype) {
     case 'Boolean':                 // drop down
     case 'Number':                  // drop down

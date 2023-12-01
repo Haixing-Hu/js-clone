@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import cloneBuffer from './clone-buffer';
-import mirrorProperties from './mirror-properties';
+import copyProperties from './copy-properties';
 
 /**
  * Clones a specified `DataView`.
@@ -23,17 +23,13 @@ import mirrorProperties from './mirror-properties';
  * @author Haixing Hu
  */
 function cloneDataView(source, options, cache) {
-  // return early on cache hit
-  if (cache.has(source)) {
-    return cache.get(source);
-  }
   const buffer = cloneBuffer(source.buffer, options, cache);
   // eslint-disable-next-line no-undef
   const result = new DataView(buffer, source.byteOffset, source.byteLength);
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  mirrorProperties(source, result, options, cache);
+  copyProperties(source, result, options, cache);
   return result;
 }
 

@@ -20,6 +20,9 @@ import CLONE_HOOKS from './impl/clone-hooks';
  * @author Haixing Hu
  */
 function unregisterCloneHook(hook) {
+  if (typeof hook !== 'function') {
+    throw new TypeError('The clone hook must be a function.');
+  }
   const index = CLONE_HOOKS.indexOf(hook);
   if (index >= 0) {
     CLONE_HOOKS.splice(index, 1);

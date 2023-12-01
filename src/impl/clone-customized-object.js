@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import mirrorProperties from './mirror-properties';
+import copyProperties from './copy-properties';
 
 /**
  * Clone a user-defined object.
@@ -22,14 +22,10 @@ import mirrorProperties from './mirror-properties';
  * @author Haixing Hu
  */
 function cloneCustomizedObject(source, options, cache) {
-  // return early on cache hit
-  if (cache.has(source)) {
-    return cache.get(source);
-  }
   const prototype = Object.getPrototypeOf(source);
   const result = Object.create(prototype);
   cache.set(source, result);
-  mirrorProperties(source, result, options, cache);
+  copyProperties(source, result, options, cache);
   return result;
 }
 

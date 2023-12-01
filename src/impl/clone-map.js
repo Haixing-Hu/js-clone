@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import cloneImpl from './clone-impl';
-import mirrorProperties from './mirror-properties';
+import copyProperties from './copy-properties';
 
 /**
  * Clones a specified map.
@@ -23,16 +23,12 @@ import mirrorProperties from './mirror-properties';
  * @author Haixing Hu
  */
 function cloneMap(source, options, cache) {
-  // return early on cache hit
-  if (cache.has(source)) {
-    return cache.get(source);
-  }
   // eslint-disable-next-line no-undef
   const result = new Map();
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  mirrorProperties(source, result, options, cache);
+  copyProperties(source, result, options, cache);
   // copy all entries in the map
   for (const [key, value] of source.entries()) {
     const newKey = cloneImpl(key, options, cache);

@@ -7,7 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import cloneImpl from './clone-impl';
-import mirrorProperties from './mirror-properties';
+import copyProperties from './copy-properties';
 
 /**
  * Clones a specified set.
@@ -23,16 +23,12 @@ import mirrorProperties from './mirror-properties';
  * @author Haixing Hu
  */
 function cloneSet(source, options, cache) {
-  // return early on cache hit
-  if (cache.has(source)) {
-    return cache.get(source);
-  }
   // eslint-disable-next-line no-undef
   const result = new Set();
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  mirrorProperties(source, result, options, cache);
+  copyProperties(source, result, options, cache);
   // copy all items in the set
   for (const value of source) {
     const newValue = cloneImpl(value, options, cache);

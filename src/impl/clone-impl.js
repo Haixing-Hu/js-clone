@@ -40,16 +40,20 @@ function cloneImpl(source, options, cache) {
     default:
       break;
   }
+  // return early on cache hit
+  if (cache.has(source)) {
+    return cache.get(source);
+  }
   // deal with cloning hooks
   for (const hook of CLONE_HOOKS) {
-    const result = hook(source, options);
+    const result = hook(info, source, options);
     if (result !== undefined && result !== null) {
       cache.set(source, result);
       return result;
     }
   }
   // clone the general object
-  return cloneObjectImpl(source, info, options, cache);
+  return cloneObjectImpl(info, source, options, cache);
 }
 
 export default cloneImpl;

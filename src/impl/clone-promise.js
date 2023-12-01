@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import mirrorProperties from './mirror-properties';
+import copyProperties from './copy-properties';
 
 /**
  * Clones a specified promise.
@@ -22,16 +22,12 @@ import mirrorProperties from './mirror-properties';
  * @author Haixing Hu
  */
 function clonePromise(source, options, cache) {
-  // return early on cache hit
-  if (cache.has(source)) {
-    return cache.get(source);
-  }
   // eslint-disable-next-line no-undef
   const result = new Promise(source.then.bind(source));
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  mirrorProperties(source, result, options, cache);
+  copyProperties(source, result, options, cache);
   return result;
 }
 
