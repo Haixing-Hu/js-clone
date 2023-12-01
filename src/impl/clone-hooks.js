@@ -10,7 +10,7 @@
 /**
  * The list of hook functions for cloning customized objects.
  *
- * @type {[Function]}
+ * @type {Array<Function>}
  * @author Haixing Hu
  * @private
  */
