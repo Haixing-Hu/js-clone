@@ -8,4 +8,4 @@
 ////////////////////////////////////////////////////////////////////////////////
 import rollupBuilder from '@haixing_hu/rollup-builder';
 
-export default rollupBuilder('clone', import.meta.url);
+export default rollupBuilder('clone', import.meta.url, { exports: 'mixed' });
