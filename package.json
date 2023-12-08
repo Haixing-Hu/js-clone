@@ -1,6 +1,6 @@
 {
   "name": "@haixing_hu/clone",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A JavaScript library provides a deep clone function",
   "author": "Haixing Hu",
   "license": "Apache-2.0",
@@ -12,7 +12,7 @@
     "url": "https://github.com/Haixing-Hu/js-clone/issues"
   },
   "homepage": "https://github.com/Haixing-Hu/js-clone",
-  "main": "dist/clone.cjs.js",
+  "main": "dist/clone.cjs.min.js",
   "module": "dist/clone.esm.min.mjs",
   "exports": {
     ".": {
