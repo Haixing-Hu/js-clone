@@ -35,74 +35,38 @@ import cloneTypedArray from './clone-typed-array';
  * @author Haixing Hu
  */
 function cloneObjectImpl(info, source, options, cache) {
-  switch (info.subtype) {
-    case 'Boolean':                 // drop down
-    case 'Number':                  // drop down
-    case 'String':
+  switch (info.category) {
+    case 'primitive-wrapper':
       return clonePrimitiveWrapperObject(source, options, cache);
-    case 'Date':                    // drop down
-    case 'RegExp':
+    case 'date':                    // drop down
+    case 'regexp':
       return cloneCopyConstructableObject(source, options, cache);
-    case 'Map':
+    case 'map':
       return cloneMap(source, options, cache);
-    case 'Set':
+    case 'set':
       return cloneSet(source, options, cache);
-    case 'WeakMap':                 // drop down
-    case 'WeakSet':
-      return source;                // WeakMap and WeakSet cannot be cloned :(
-    case 'Array':
+    case 'array':
       return cloneArray(source, options, cache);
-    case 'Int8Array':               // drop down
-    case 'Uint8Array':              // drop down
-    case 'Uint8ClampedArray':       // drop down
-    case 'Int16Array':              // drop down
-    case 'Uint16Array':             // drop down
-    case 'Int32Array':              // drop down
-    case 'Uint32Array':             // drop down
-    case 'BigInt64Array':           // drop down
-    case 'BigUint64Array':          // drop down
-    case 'Float32Array':            // drop down
-    case 'Float64Array':
+    case 'typed-array':
       return cloneTypedArray(source, options, cache);
-    case 'ArrayBuffer':             // drop down
-    case 'SharedArrayBuffer':
+    case 'buffer':
       return cloneBuffer(source, options, cache);
-    case 'DataView':
+    case 'data-view':
       return cloneDataView(source, options, cache);
-    case 'WeakRef':
-      return source;                // WeakRef cannot be cloned :(
-    case 'Promise':
+    case 'promise':
       return clonePromise(source, options, cache);
-    case 'Intl.Collator':
-    case 'Intl.DateTimeFormat':
-    case 'Intl.DisplayNames':
-    case 'Intl.DurationFormat':
-    case 'Intl.ListFormat':
-    case 'Intl.Locale':
-    case 'Intl.NumberFormat':
-    case 'Intl.PluralRules':
-    case 'Intl.RelativeTimeFormat':
-    case 'Intl.Segmenter':
-      return source;                // Intl objects are immutable and cannot be cloned
-    case 'MapIterator':
-    case 'SetIterator':
-    case 'ArrayIterator':
-    case 'StringIterator':
-    case 'RegExpStringIterator':
-    case 'SegmenterStringIterator':
-      return source;                // iterators cannot be cloned :(
-    case 'FinalizationRegistry':
-      return source;                // FinalizationRegistry cannot be cloned :(
-    case 'Error':
+    case 'error':
       return cloneError(source, options, cache);
-    case 'Arguments':               // arguments is a special array like object
-      return source;                // arguments cannot be cloned :(
-    case 'Generator':
-    case 'AsyncGenerator':
-      return source;                // generators cannot be cloned :(
-    case 'GlobalObject':
-      return source;                // global object cannot be cloned :(
-    case 'Object':                  // drop down
+    case 'weak':                    // weak referenced cannot be cloned :(
+    case 'intl':                    // Intl objects are immutable and cannot be cloned
+    case 'iterator':                // iterators cannot be cloned :(
+    case 'finalization-registry':   // FinalizationRegistry cannot be cloned :(
+    case 'arguments':               // arguments cannot be cloned :(
+    case 'generator':               // generators cannot be cloned :(
+    case 'global':                  // global object cannot be cloned :(
+      return source;
+    case 'object':                  // drop down
+    case 'class':                   // drop down
     default:
       // clone all other objects, including user defined objects
       return cloneCustomizedObject(source, options, cache);
