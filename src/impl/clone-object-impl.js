@@ -36,7 +36,9 @@ import cloneTypedArray from './clone-typed-array';
  */
 function cloneObjectImpl(info, source, options, cache) {
   switch (info.category) {
-    case 'primitive-wrapper':
+    case 'string':
+    case 'boolean':
+    case 'numeric':
       return clonePrimitiveWrapperObject(source, options, cache);
     case 'date':                    // drop down
     case 'regexp':
