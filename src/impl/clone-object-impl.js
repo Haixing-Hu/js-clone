@@ -66,6 +66,11 @@ function cloneObjectImpl(info, source, options, cache) {
     case 'arguments':               // arguments cannot be cloned :(
     case 'generator':               // generators cannot be cloned :(
     case 'global':                  // global object cannot be cloned :(
+    case 'DOM':                     // DOM object cannot be cloned :(
+    case 'CSSOM':                   // CSSOM object cannot be cloned :(
+    case 'event':                   // Event object cannot be cloned :(
+    case 'console':                 // window.console cannot be cloned :(
+    case 'file':                    // File API object cannot be cloned :(
       return source;
     case 'object':                  // drop down
     case 'class':                   // drop down
