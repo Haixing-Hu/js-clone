@@ -60,7 +60,7 @@ describe('clone array of customized class with naming conversion', () => {
         second_child_field: {
           the_person: person,
         },
-      }
+      },
     };
     const result = clone([obj], {
       convertNaming: true,

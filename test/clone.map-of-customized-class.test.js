@@ -63,7 +63,7 @@ describe('clone built-in Map of customized class with naming conversion', () => 
         second_child_field: {
           the_person: person,
         },
-      }
+      },
     };
     const map = new Map();
     map.set('person', obj);

@@ -91,7 +91,6 @@ describe('clone objects of a customized class', () => {
   });
 });
 
-
 /**
  * Unit test the `clone()` function to clone objects of a customized class
  * with naming conversion.
@@ -115,7 +114,7 @@ describe('clone objects of a customized class with naming conversion', () => {
         second_child_field: {
           the_person: person,
         },
-      }
+      },
     };
     const result = clone(obj, {
       convertNaming: true,
@@ -146,7 +145,7 @@ describe('clone objects of a customized class with naming conversion', () => {
         second_child_field: {
           the_person: person,
         },
-      }
+      },
     };
     const result = clone(obj, {
       convertNaming: true,
@@ -176,7 +175,7 @@ describe('clone objects of a customized class with naming conversion', () => {
         secondChildField: {
           thePerson: person,
         },
-      }
+      },
     };
     const result = clone(obj, {
       convertNaming: true,

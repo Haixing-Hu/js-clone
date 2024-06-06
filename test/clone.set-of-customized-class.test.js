@@ -33,7 +33,7 @@ describe('clone built-in Set of customized class', () => {
     const result = clone(set);
     expect(result).toBeInstanceOf(Set);
     expect(result.size).toBe(1);
-    const iter = result.values()
+    const iter = result.values();
     const value = iter.next().value;
     expect(value).toBeInstanceOf(Person);
     expectAlike(value, obj);
@@ -63,7 +63,7 @@ describe('clone built-in Set of customized class with naming conversion', () => 
         second_child_field: {
           the_person: person,
         },
-      }
+      },
     };
     const set = new Set();
     set.add(obj);
@@ -74,7 +74,7 @@ describe('clone built-in Set of customized class with naming conversion', () => 
     });
     expect(result).toBeInstanceOf(Set);
     expect(result.size).toBe(1);
-    const iter = result.values()
+    const iter = result.values();
     const value = iter.next().value;
     expect(value).toBeInstanceOf(Object);
     expect(value.firstField).toBe(obj.first_field);
