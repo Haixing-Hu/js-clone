@@ -9,9 +9,9 @@
 import Person from './Person';
 
 /**
- * 此模型表示购买者信息。
+ * This model represents the buyer information.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 class Buyer extends Person {
   // empty

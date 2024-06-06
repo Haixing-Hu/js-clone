@@ -9,9 +9,9 @@
 import Person from './Person';
 
 /**
- * 此模型表示监护人信息。
+ * This model represents guardian information.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 class Guardian extends Person {
   // empty

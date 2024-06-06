@@ -8,17 +8,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * 此枚举表示性别
+ * This enumeration represents genders.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 const Gender = {
   MALE: {
-    name: '男',
+    name: 'Male',
     value: 'MALE',
   },
   FEMALE: {
-    name: '女',
+    name: 'Female',
     value: 'FEMALE',
   },
 };

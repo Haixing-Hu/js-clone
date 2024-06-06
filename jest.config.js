@@ -25,5 +25,5 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: './coverage',
   collectCoverageFrom: ['src/**/*.js'],
-  coveragePathIgnorePatterns: ['src/impl/'],
+  coveragePathIgnorePatterns: ['src/index.js', 'src/impl/clone-error.js'],
 };

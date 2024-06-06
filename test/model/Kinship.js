@@ -8,29 +8,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * 此枚举表示参保者与投保人之间的关系。
+ * This enumeration represents the relationship between the insured and the
+ * policyholder.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 const Kinship = {
   SELF: {
-    name: '本人',
+    name: 'Personal',
     value: 'SELF',
   },
   PARENT: {
-    name: '父母',
+    name: 'Parents',
     value: 'PARENT',
   },
   CHILD: {
-    name: '子女',
+    name: 'Child',
     value: 'CHILD',
   },
   SPOUSE: {
-    name: '配偶',
+    name: 'Spouse',
     value: 'SPOUSE',
   },
   OTHER: {
-    name: '其他',
+    name: 'Other',
     value: 'OTHER',
   },
 };

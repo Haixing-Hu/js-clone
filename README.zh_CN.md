@@ -9,7 +9,7 @@
 [clone] 是一个 JavaScript 库，用于深度克隆 JavaScript 对象。它保持对象及其所有属性的原型，
 并支持自定义克隆钩子函数，允许对指定类型执行特殊的克隆算法。
 
-此开源库具有以下特性：
+不同于内置的 [structuredClone()] 函数，此开源库具有以下特性：
 
 - **深度克隆**：能够深度克隆任意 JavaScript 对象，包括但不限于简单对象、自定义类的实例、
   `Array`、`Map`、`Set`、`Date`、`RegExp`、`Error`、`Promise` 等。
@@ -18,8 +18,9 @@
 - **支持内置对象的自定义属性**：由于 JavaScript 语言的灵活性，对于内置对象，用户可以在该对象
   上任意设置自定义属性，例如`const str = 'hello'; str.x = 123;`，本函数库能够克隆这些自定
   义属性。
-- **可设置克隆算法参数**：支持自定义克隆算法参数，通过参数定制克隆算法。
-- **可自定义克隆算法**：支持自定义克隆算法，通过注册钩子函数定制对特定类型的克隆算法。
+- **可自定义的克隆算法参数**：支持自定义克隆算法参数，通过参数定制克隆算法。
+- **可自定义的命名转换规则**：支持自定义命名转换规则，允许转换克隆结果对象属性的命名风格。
+- **可自定义的克隆算法**：支持自定义克隆算法，通过注册钩子函数定制对特定类型的克隆算法。
 - **Vue.js 反应性支持**：兼容 Vue.js 的反应性系统，只克隆可枚举属性。
 
 ## <span id="contents">目录</span>
@@ -35,6 +36,7 @@
 - [示例](#examples)
   - [深度克隆对象](#clone)
   - [克隆算法选项](#clone-with-options)
+  - [带命名转换的克隆](#clone-with-naming-conversion)
   - [定制克隆行为](#customize-clone-hook)
 - [许可证](#license)
 - [贡献方式](#contributing)
@@ -85,10 +87,19 @@ expect(copy2.credential).toBeInstanceOf(Credential);
 
 - `source: any` - 要克隆的值或对象。
 - `options: object` - 克隆算法的选项对象。可能的选项包括：
-    - `includeAccessor: boolean`：若为 `true`，将克隆属性的访问器（即 getter 和 setter）。默认为 `false`。
-    - `excludeReadonly: boolean`：若为 `true`，将不克隆只读属性。默认为 `false`。
-    - `includeNonEnumerable: boolean`：若为 `true`，将克隆非枚举属性。默认为 `false`。
-    - `includeNonConfigurable: boolean`：若为 `true`，将克隆非可配置属性。默认为 `false`。
+  - `includeAccessor: boolean`：若为 `true`，将克隆属性的访问器（即 getter 和 setter）。
+    默认为 `false`。
+  - `excludeReadonly: boolean`：若为 `true`，将不克隆只读属性。默认为 `false`。
+  - `includeNonEnumerable: boolean`：若为 `true`，将克隆非枚举属性。默认为 `false`。
+  - `includeNonConfigurable: boolean`：若为 `true`，将克隆非可配置属性。默认为 `false`。
+  - `convertNaming: boolean` - 若为 `true`，克隆算法将根据指定的命名风格转换目标对象的属性名称。
+    此选项的默认值为 `false`。
+  - `sourceNamingStyle: string | NamingStyle`, 源对象的命名样式。该选项仅在 `convertNaming` 
+    选项设置为 `true` 时有效。该选项的值可以是表示命名样式名称的字符串，也可以是一个
+    `NamingStyle` 实例。默认值为 `NamingStyle.LOWER_CAMEL`。
+  - `targetNamingStyle: string | NamingStyle`, 目标对象（即克隆结果对象）的命名样式。
+    该选项仅在 `convertNaming` 选项设置为 `true` 时有效。该选项的值可以是表示命名样式名称
+    的字符串，也可以是一个`NamingStyle` 实例。默认值为 `NamingStyle.LOWER_CAMEL`。
 
 克隆函数支持对 JavaScript 内置对象的克隆，包括但不限于 primitive 类型、数组、`Map`、`Set`等。
 具体的支持如下：
@@ -269,6 +280,61 @@ expect(copy2.ne).toBe('non-enumerable');
 expect('nc' in copy2).toBe(false);
 ```
 
+### <span id="clone-with-naming-conversion">带命名转换的克隆</span>
+
+以下代码示例演示了如何使用自定义命名转换规则进行克隆。具体选项请参考 [API 文档](#api)。
+
+```js
+import clone from '@haixing_hu/clone';
+
+class Credential {
+  type = '';
+  number = '';
+}
+class Person {
+  name = '';
+  age = 0;
+  credential = new Credential();
+}
+const person = new Person();
+person.name = 'Bill Gates';
+person.age = 30;
+person.credential.type = 'PASSWORD';
+person.credential.number = '111111';
+const copy2 = clone(person);
+expect(copy2).toEqual(person);
+expect(copy2).not.toBe(person);
+expect(copy2).toBeInstanceOf(Person);
+expect(copy2.credential).toBeInstanceOf(Credential);
+
+const obj = {
+  first_field: 'first-field',
+  second_field: {
+    first_child_field: 'first-child-field',
+    second_child_field: {
+      the_person: person,
+    },
+  }
+};
+const copy = clone(obj, {
+  convertNaming: true,
+  sourceNamingStyle: 'lower-underscore',
+  targetNamingStyle: 'lower_camel',
+});
+expect(copy).toBeInstanceOf(Object);
+expect(copy.firstField).toBe(obj.first_field);
+expect(copy.secondField).toBeInstanceOf(Object);
+expect(copy.secondField.firstChildField).toBe(obj.second_field.first_child_field);
+expect(copy.secondField.secondChildField).toBeInstanceOf(Object);
+expect(copy.secondField.secondChildField.thePerson).toBeInstanceOf(Person);
+expect(copy.secondField.secondChildField.thePerson).toEqual(person);
+expect(copy.secondField.secondChildField.thePerson).not.toBe(person);
+```
+
+请注意，命名转换样式可以通过字符串或 `NamingStyle` 实例指定。如果通过字符串指定，则字符串不
+区分大小写，并且字符 `'-'` 和 `'_'`; 被视为相同。有关更多详细信息，请参阅 
+`NamingStyle.of()` 函数。
+
 ### <span id="customize-clone-hook">定制克隆行为</span>
 
 ```js
@@ -310,6 +376,7 @@ unregisterCloneHook(customCloneHook);
 [typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
 [typeInfo()]: https://npmjs.com/package/@haixing_hu/typeinfo
 [clone]: https://npmjs.com/package/@haixing_hu/clone
+[structuredClone()]: https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 [arguments]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
 [Intl]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
 [全局对象]: https://developer.mozilla.org/en-US/docs/Glossary/Global_object

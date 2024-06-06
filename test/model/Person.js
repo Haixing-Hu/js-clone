@@ -9,13 +9,13 @@
 import Credential from './Credential';
 
 /**
- * 此模型表示个人信息。
+ * This model represents personal information.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 class Person {
   /**
-   * 创建一个{@link Person}对象
+   * Create a {@link Person} object.
    */
   constructor() {
     this.id = '';

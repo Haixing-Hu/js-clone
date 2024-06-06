@@ -14,13 +14,12 @@ import Person from './model/Person';
 import expectAlike from './utils/expect-alike';
 
 /**
- * Unit test the `clone()` function to clone an array of objects of a customized
- * class.
+ * Unit test the `clone()` function to clone built-in `Set` of customized class.
  *
  * @author Haixing Hu
  */
-describe('clone array of customized class', () => {
-  test('clone([Person])', () => {
+describe('clone built-in Set of customized class', () => {
+  test('clone(Set<Person>)', () => {
     const obj = new Person();
     obj.id = '0';
     obj.name = 'name';
@@ -29,22 +28,26 @@ describe('clone array of customized class', () => {
     obj.birthday = '1990-01-01';
     obj.mobile = '12039495';
     obj.email = 'i@i.com';
-    const result = clone([obj]);
-    expect(result).toBeArray();
-    expect(result.length).toBe(1);
-    expect(result[0]).toBeInstanceOf(Person);
-    expectAlike(result[0], obj);
+    const set = new Set();
+    set.add(obj);
+    const result = clone(set);
+    expect(result).toBeInstanceOf(Set);
+    expect(result.size).toBe(1);
+    const iter = result.values()
+    const value = iter.next().value;
+    expect(value).toBeInstanceOf(Person);
+    expectAlike(value, obj);
   });
 });
 
 /**
- * Unit test the `clone()` function to clone an array of objects of a customized
- * class with naming conversion.
+ * Unit test the `clone()` function to clone built-in `Set` of customized class
+ * with naming conversion.
  *
  * @author Haixing Hu
  */
-describe('clone array of customized class with naming conversion', () => {
-  test('clone([object], { convertNaming: true })', () => {
+describe('clone built-in Set of customized class with naming conversion', () => {
+  test('clone(Set<object>, { convertNaming: true })', () => {
     const person = new Person();
     person.id = '0';
     person.name = 'name';
@@ -62,19 +65,23 @@ describe('clone array of customized class with naming conversion', () => {
         },
       }
     };
-    const result = clone([obj], {
+    const set = new Set();
+    set.add(obj);
+    const result = clone(set, {
       convertNaming: true,
       sourceNamingStyle: 'LOWER_UNDERSCORE',
       targetNamingStyle: 'LOWER_CAMEL',
     });
-    expect(result).toBeArray();
-    expect(result.length).toBe(1);
-    expect(result[0]).toBeInstanceOf(Object);
-    expect(result[0].firstField).toBe(obj.first_field);
-    expect(result[0].secondField).toBeInstanceOf(Object);
-    expect(result[0].secondField.firstChildField).toBe(obj.second_field.first_child_field);
-    expect(result[0].secondField.secondChildField).toBeInstanceOf(Object);
-    expect(result[0].secondField.secondChildField.thePerson).toBeInstanceOf(Person);
-    expectAlike(result[0].secondField.secondChildField.thePerson, person);
+    expect(result).toBeInstanceOf(Set);
+    expect(result.size).toBe(1);
+    const iter = result.values()
+    const value = iter.next().value;
+    expect(value).toBeInstanceOf(Object);
+    expect(value.firstField).toBe(obj.first_field);
+    expect(value.secondField).toBeInstanceOf(Object);
+    expect(value.secondField.firstChildField).toBe(obj.second_field.first_child_field);
+    expect(value.secondField.secondChildField).toBeInstanceOf(Object);
+    expect(value.secondField.secondChildField.thePerson).toBeInstanceOf(Person);
+    expectAlike(value.secondField.secondChildField.thePerson, person);
   });
 });

@@ -9,13 +9,13 @@
 import Person from './Person';
 
 /**
- * 此模型表示被保人信息。
+ * This model represents the insured person information.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 class Insurant extends Person {
   /**
-   * 创建一个{@link Insurant}对象
+   * Create a {@link Insurant} object.
    */
   constructor() {
     super();

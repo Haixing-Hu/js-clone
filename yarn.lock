@@ -1484,14 +1484,16 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:^7.23.3"
     "@babel/preset-env": "npm:^7.23.3"
     "@babel/runtime": "npm:^7.23.0"
-    "@haixing_hu/eslint-config": "npm:^1.3.1"
+    "@haixing_hu/eslint-config": "npm:^1.3.3"
     "@haixing_hu/jsdoc-minami": "npm:^1.5.0"
-    "@haixing_hu/rollup-builder": "npm:^1.5.0"
-    "@haixing_hu/typeinfo": "npm:^2.5.1"
+    "@haixing_hu/naming-style": "npm:^1.3.0"
+    "@haixing_hu/rollup-builder": "npm:^1.6.3"
+    "@haixing_hu/typeinfo": "npm:^2.5.2"
     "@jest/core": "npm:^29.7.0"
     "@rollup/plugin-alias": "npm:^5.0.1"
     "@rollup/plugin-babel": "npm:^6.0.4"
     "@rollup/plugin-commonjs": "npm:^25.0.7"
+    "@rollup/plugin-json": "npm:^6.1.0"
     "@rollup/plugin-node-resolve": "npm:^15.2.3"
     "@rollup/plugin-terser": "npm:^0.4.4"
     "@vue/compiler-dom": "npm:^3.3.8"
@@ -1511,21 +1513,22 @@ __metadata:
     jsdom: "npm:^18.1.1"
     rollup: "npm:^4.1.4"
     rollup-plugin-analyzer: "npm:^4.0.0"
+    rollup-plugin-visualizer: "npm:^5.12.0"
     vue: "npm:^3.3.8"
   peerDependencies:
     "@babel/runtime": ^7.23.0
-    "@haixing_hu/typeinfo": ^2.5.1
+    "@haixing_hu/typeinfo": ^2.5.2
   languageName: unknown
   linkType: soft
 
-"@haixing_hu/eslint-config@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "@haixing_hu/eslint-config@npm:1.3.1"
+"@haixing_hu/eslint-config@npm:^1.3.3":
+  version: 1.3.3
+  resolution: "@haixing_hu/eslint-config@npm:1.3.3"
   dependencies:
     eslint: "npm:^8.12.0"
     eslint-config-airbnb-base: "npm:^15.0.0"
     eslint-plugin-import: "npm:^2.28.1"
-  checksum: fe8bb8e27f7be4ea3571673915fb6e1aaa46fc8295c7d8f8fae9d0837bd1baf1a6ef16291661fdb6d0b3027d07f29c650819cc31ec6ab81e35626a28db70ef0f
+  checksum: 310cb805e12a221b92472d8070765b3a3616545c39f26e4d2a4464b823a5517973cdb7fe1f375820a1633419187fe5d56204f9b4c2b8f2ee392e2ede0b25bb06
   languageName: node
   linkType: hard
 
@@ -1539,30 +1542,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@haixing_hu/rollup-builder@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "@haixing_hu/rollup-builder@npm:1.5.0"
+"@haixing_hu/naming-style@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@haixing_hu/naming-style@npm:1.3.0"
+  peerDependencies:
+    "@babel/runtime": ^7.23.0
+  checksum: 41f99fac9d6b30d2daf93cb090a766ab6994972cd9de3f76713a16593a68a7d175769e5b71ea92b9c8caa5199a2f6b62cf73317a9d27f4a115371b698b8ba164
+  languageName: node
+  linkType: hard
+
+"@haixing_hu/rollup-builder@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "@haixing_hu/rollup-builder@npm:1.6.3"
   peerDependencies:
     "@babel/core": ^7.23.2
     "@babel/plugin-transform-runtime": ^7.23.2
     "@babel/preset-env": ^7.23.2
+    "@babel/runtime": ^7.23.2
     "@rollup/plugin-alias": ^5.0.1
     "@rollup/plugin-babel": ^6.0.4
     "@rollup/plugin-commonjs": ^25.0.7
+    "@rollup/plugin-json": ^6.1.0
     "@rollup/plugin-node-resolve": ^15.2.3
     "@rollup/plugin-terser": ^0.4.4
     rollup: ^4.1.4
     rollup-plugin-analyzer: ^4.0.0
-  checksum: b14365de102024fbda537c0e2fd699de44a7a12bca6ab981c15a36d1708d2f10b3fe46ce43b3ff99181dd76a37a7cb03332d07e9725f6cbd5de954f60448c6b2
+    rollup-plugin-visualizer: ^5.12.0
+  checksum: 5e55231bdb68bfd8487af9bb7e6025294e8c8d5e83a12df8853f3be8cf8692a03c13ee26c2564ff29c560671dfe1931e689f0d0cd516972beccdfd1ebe42e1d7
   languageName: node
   linkType: hard
 
-"@haixing_hu/typeinfo@npm:^2.5.1":
-  version: 2.5.1
-  resolution: "@haixing_hu/typeinfo@npm:2.5.1"
+"@haixing_hu/typeinfo@npm:^2.5.2":
+  version: 2.5.2
+  resolution: "@haixing_hu/typeinfo@npm:2.5.2"
   peerDependencies:
     "@babel/runtime": ^7.23.0
-  checksum: 254dca44a2d973db397941b009aa46e8423db9dcde838e2db8058307d1c68b7c80cc62e7de4cd795803da2225f15229f94ed6d24194c21babb1a5eab3d8f7ce0
+  checksum: 58dc52bfdfd7f619eedf0dfdafb29fff40c5cc1416460261be50167894a5189dd30667aa4a982cdc6c0117dcef51998effa8b46ec19ad0497ad73b9c2f77ce83
   languageName: node
   linkType: hard
 
@@ -2060,6 +2075,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-json@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@rollup/plugin-json@npm:6.1.0"
+  dependencies:
+    "@rollup/pluginutils": "npm:^5.1.0"
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: 9400c431b5e0cf3088ba2eb2d038809a2b0fb2a84ed004997da85582f48cd64958ed3168893c4f2c8109e38652400ed68282d0c92bf8ec07a3b2ef2e1ceab0b7
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-node-resolve@npm:^15.2.3":
   version: 15.2.3
   resolution: "@rollup/plugin-node-resolve@npm:15.2.3"
@@ -2108,6 +2137,22 @@ __metadata:
     rollup:
       optional: true
   checksum: 18a1f5a9afa993a76663cc2102169cd546786b39a3e92bdc8a2a0b408b509d070a02b20970a30daa9d5d0b1b591b5e7734add84b3aaf263178aef5a26cfab2cf
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "@rollup/pluginutils@npm:5.1.0"
+  dependencies:
+    "@types/estree": "npm:^1.0.0"
+    estree-walker: "npm:^2.0.2"
+    picomatch: "npm:^2.3.1"
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: c7bed15711f942d6fdd3470fef4105b73991f99a478605e13d41888963330a6f9e32be37e6ddb13f012bc7673ff5e54f06f59fd47109436c1c513986a8a7612d
   languageName: node
   linkType: hard
 
@@ -3473,6 +3518,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"define-lazy-prop@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "define-lazy-prop@npm:2.0.0"
+  checksum: db6c63864a9d3b7dc9def55d52764968a5af296de87c1b2cc71d8be8142e445208071953649e0386a8cc37cfcf9a2067a47207f1eb9ff250c2a269658fdae422
+  languageName: node
+  linkType: hard
+
 "define-properties@npm:^1.1.3, define-properties@npm:^1.1.4, define-properties@npm:^1.2.0":
   version: 1.2.1
   resolution: "define-properties@npm:1.2.1"
@@ -4704,6 +4756,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-docker@npm:^2.0.0, is-docker@npm:^2.1.1":
+  version: 2.2.1
+  resolution: "is-docker@npm:2.2.1"
+  bin:
+    is-docker: cli.js
+  checksum: e828365958d155f90c409cdbe958f64051d99e8aedc2c8c4cd7c89dcf35329daed42f7b99346f7828df013e27deb8f721cf9408ba878c76eb9e8290235fbcdcc
+  languageName: node
+  linkType: hard
+
 "is-extglob@npm:^2.1.1":
   version: 2.1.1
   resolution: "is-extglob@npm:2.1.1"
@@ -4853,6 +4914,15 @@ __metadata:
   dependencies:
     call-bind: "npm:^1.0.2"
   checksum: 1545c5d172cb690c392f2136c23eec07d8d78a7f57d0e41f10078aa4f5daf5d7f57b6513a67514ab4f073275ad00c9822fc8935e00229d0a2089e1c02685d4b1
+  languageName: node
+  linkType: hard
+
+"is-wsl@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "is-wsl@npm:2.2.0"
+  dependencies:
+    is-docker: "npm:^2.0.0"
+  checksum: a6fa2d370d21be487c0165c7a440d567274fbba1a817f2f0bfa41cc5e3af25041d84267baa22df66696956038a43973e72fca117918c91431920bdef490fa25e
   languageName: node
   linkType: hard
 
@@ -6363,6 +6433,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"open@npm:^8.4.0":
+  version: 8.4.2
+  resolution: "open@npm:8.4.2"
+  dependencies:
+    define-lazy-prop: "npm:^2.0.0"
+    is-docker: "npm:^2.1.1"
+    is-wsl: "npm:^2.2.0"
+  checksum: bb6b3a58401dacdb0aad14360626faf3fb7fba4b77816b373495988b724fb48941cad80c1b65d62bb31a17609b2cd91c41a181602caea597ca80dfbcc27e84c9
+  languageName: node
+  linkType: hard
+
 "optionator@npm:^0.9.3":
   version: 0.9.3
   resolution: "optionator@npm:0.9.3"
@@ -6873,6 +6954,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-visualizer@npm:^5.12.0":
+  version: 5.12.0
+  resolution: "rollup-plugin-visualizer@npm:5.12.0"
+  dependencies:
+    open: "npm:^8.4.0"
+    picomatch: "npm:^2.3.1"
+    source-map: "npm:^0.7.4"
+    yargs: "npm:^17.5.1"
+  peerDependencies:
+    rollup: 2.x || 3.x || 4.x
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  bin:
+    rollup-plugin-visualizer: dist/bin/cli.js
+  checksum: 0e44a641223377ebb472bb10f2b22efa773b5f6fbe8d54f197f07c68d7a432cbf00abad79a0aa1570f70c673c792f24700d926d663ed9a4d0ad8406ae5a0f4e4
+  languageName: node
+  linkType: hard
+
 "rollup@npm:^4.1.4":
   version: 4.4.1
   resolution: "rollup@npm:4.4.1"
@@ -7183,6 +7283,13 @@ __metadata:
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: ab55398007c5e5532957cb0beee2368529618ac0ab372d789806f5718123cc4367d57de3904b4e6a4170eb5a0b0f41373066d02ca0735a0c4d75c7d328d3e011
+  languageName: node
+  linkType: hard
+
+"source-map@npm:^0.7.4":
+  version: 0.7.4
+  resolution: "source-map@npm:0.7.4"
+  checksum: dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc
   languageName: node
   linkType: hard
 

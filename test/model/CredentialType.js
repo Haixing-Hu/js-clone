@@ -8,43 +8,43 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * 此枚举表示证件类型
+ * This enumeration represents the certificate types.
  *
- * @author 胡海星
+ * @author Haixing Hu
  */
 const CredentialType = {
   IDENTITY_CARD: {
-    name: '身份证',
+    name: 'ID Card',
     value: 'IDENTITY_CARD',
   },
 
   PASSPORT: {
-    name: '护照',
+    name: 'Passport',
     value: 'PASSPORT',
   },
 
   OFFICER_CARD: {
-    name: '中国人民解放军军官证',
+    name: 'Chinese People\'s Liberation Army Officer Certificate',
     value: 'OFFICER_CARD',
   },
 
   POLICE_CARD: {
-    name: '中国人民武装警察警官证',
+    name: 'Chinese People\'s Armed Police Officer Certificate',
     value: 'POLICE_CARD',
   },
 
   TAIWAN_RETURN_PERMIT: {
-    name: '台湾居民来往大陆通行证',
+    name: 'Mainland Travel Permit for Taiwan Residents',
     value: 'TAIWAN_RETURN_PERMIT',
   },
 
   FOREIGNER_PERMANENT_RESIDENCE_PERMIT: {
-    name: '外国人永久居住证',
+    name: 'Permanent Residence Permit for Foreigners',
     value: 'FOREIGNER_PERMANENT_RESIDENCE_PERMIT',
   },
 
   OTHER: {
-    name: '其他证件',
+    name: 'Other documents',
     value: 'OTHER',
   },
 };

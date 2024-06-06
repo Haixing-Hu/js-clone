@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (c) 2022 - 2023.
+//    Copyright (c) 2022 - 2024.
 //    Haixing Hu, Qubit Co. Ltd.
 //
 //    All rights reserved.
@@ -8,6 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /* eslint-disable import/no-cycle */
 import cloneImpl from './clone-impl';
+import getTargetKey from './get-target-key';
 
 /**
  * Copies the properties of the source object to the target object.
@@ -35,9 +36,9 @@ import cloneImpl from './clone-impl';
  * @author Haixing Hu
  */
 function copyProperties(source, target, options, cache) {
-  const keys = Reflect.ownKeys(source);
-  for (const key of keys) {
-    const descriptor = Object.getOwnPropertyDescriptor(source, key);
+  const sourceKeys = Reflect.ownKeys(source);
+  for (const sourceKey of sourceKeys) {
+    const descriptor = Object.getOwnPropertyDescriptor(source, sourceKey);
     if ((!options.includeNonConfigurable) && (!descriptor.configurable)) {
       continue; // ignore non-configurable properties, such as string[0]
     }
@@ -48,15 +49,17 @@ function copyProperties(source, target, options, cache) {
       continue; // ignore readonly properties
     }
     if (options.includeAccessor && (descriptor.get || descriptor.set)) {
-      Object.defineProperty(target, key, descriptor);
+      const targetKey = getTargetKey(sourceKey, options);
+      Object.defineProperty(target, targetKey, descriptor);
       continue;
     }
     // use [] to get property value instead of descriptor.value, since if
     // the property has getter/setter, descriptor.value do not exist, and
     // use [] will invoke the getter, which is just what we want.
-    const value = source[key];
+    const value = source[sourceKey];
+    const targetKey = getTargetKey(sourceKey, options);
     // eslint-disable-next-line no-use-before-define
-    target[key] = cloneImpl(value, options, cache); // recursive call
+    target[targetKey] = cloneImpl(value, options, cache); // recursive call
   }
 }
 

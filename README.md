@@ -11,7 +11,8 @@ retains the prototype of the object and all its properties, and supports custom
 clone hook functions, allowing for specialized clone algorithms for specific
 types. 
 
-This library has the following features:
+This library has the following features which is not supported by the built-in
+[structuredClone()] function:
 
 - **Deep Cloning**: Capable of deeply cloning any JavaScript object, including 
   but not limited to simple objects, instances of custom classes, `Array`, `Map`, 
@@ -26,6 +27,8 @@ This library has the following features:
   attributes.
 - **Customizable Cloning Parameters**: Supports custom cloning parameters, 
   allowing for customization of the cloning algorithm.
+- **Customizable Naming Conversion Rule**: Supports specifying naming conversion 
+  rule, allowing for converting naming styles of properties of cloned objects. 
 - **Customizable Cloning Algorithm**: Supports the customization of the cloning
   algorithm through the registration of hook functions.
 - **Vue.js Reactivity Support**: Compatible with the reactivity system of 
@@ -44,6 +47,7 @@ This library has the following features:
 - [Examples](#examples)
     - [Deep Cloning Objects](#clone-object)
     - [Cloning with Options](#clone-with-options)
+    - [Cloning with Naming Conversion](#clone-with-naming-conversion)
     - [Customizing Clone Behavior](#customize-clone-behavior)
 - [License](#license)
 - [Contributing](#contributing)
@@ -103,6 +107,19 @@ Deep clones a value or object.
       properties. Defaults to `false`.
     - `includeNonConfigurable: boolean`: If `true`, clones non-configurable 
       properties. Defaults to `false`.
+    - `convertNaming: boolean` - If `true`, the cloning algorithm will convert 
+      the names of the properties of the target object according to the
+      specified naming styles. The default value of this option is `false`.
+    - `sourceNamingStyle: string | NamingStyle`, the naming style of the source
+      object. This option is only effective when the `convertNaming` option is
+      set to `true`. The value of this options can be either a string representing
+      the name of the naming style, or a `NamingStyle` instance. The default 
+      value is `NamingStyle.LOWER_CAMEL`.
+    - `targetNamingStyle: string | NamingStyle`, the naming style of the target
+      object, i.e., the cloned object. This option is only effective when the
+      `convertNaming` option is set to `true`. The value of this options can be 
+      either a string representing the name of the naming style, or a 
+      `NamingStyle` instance. The default value is `NamingStyle.LOWER_CAMEL`.
 
 The clone function supports cloning customized objects as well as JavaScript 
 built-in values and objects, including but not limited to primitive types, 
@@ -306,6 +323,63 @@ expect(copy2.ne).toBe('non-enumerable');
 expect('nc' in copy2).toBe(false);
 ```
 
+### <span id="clone-with-naming-conversion">Cloning with Naming Conversion</span>
+
+The following code example demonstrates how to clone with custom naming 
+conversion rules. For specific options, refer to the [API Documentation](#api).
+
+```js
+import clone from '@haixing_hu/clone';
+
+class Credential {
+  type = '';
+  number = '';
+}
+class Person {
+  name = '';
+  age = 0;
+  credential = new Credential();
+}
+const person = new Person();
+person.name = 'Bill Gates';
+person.age = 30;
+person.credential.type = 'PASSWORD';
+person.credential.number = '111111';
+const copy2 = clone(person);
+expect(copy2).toEqual(person);
+expect(copy2).not.toBe(person);
+expect(copy2).toBeInstanceOf(Person);
+expect(copy2.credential).toBeInstanceOf(Credential);
+
+const obj = {
+  first_field: 'first-field',
+  second_field: {
+    first_child_field: 'first-child-field',
+    second_child_field: {
+      the_person: person,
+    },
+  }
+};
+const copy = clone(obj, {
+  convertNaming: true,
+  sourceNamingStyle: 'lower-underscore',
+  targetNamingStyle: 'lower_camel',
+});
+expect(copy).toBeInstanceOf(Object);
+expect(copy.firstField).toBe(obj.first_field);
+expect(copy.secondField).toBeInstanceOf(Object);
+expect(copy.secondField.firstChildField).toBe(obj.second_field.first_child_field);
+expect(copy.secondField.secondChildField).toBeInstanceOf(Object);
+expect(copy.secondField.secondChildField.thePerson).toBeInstanceOf(Person);
+expect(copy.secondField.secondChildField.thePerson).toEqual(person);
+expect(copy.secondField.secondChildField.thePerson).not.toBe(person);
+```
+
+Note that the naming conversion styles can be specified either by a string
+or by a `NamingStyle` instance. If it is specified by a string, the string
+is compared case-insensitively and the characters `'-'` and `'_'` are treated as
+the same. See `NamingStyle.of()` function for more details.
+
 ### <span id="customize-clone-hook">Customizing Clone Behavior</span>
 
 ```js
@@ -348,6 +422,7 @@ open an issue or submit a pull request in the [GitHub repository].
 [typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
 [typeInfo()]: https://npmjs.com/package/@haixing_hu/typeinfo
 [clone]: https://npmjs.com/package/@haixing_hu/clone
+[structuredClone()]: https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 [arguments]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
 [Intl]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
 [Global object]: https://developer.mozilla.org/en-US/docs/Glossary/Global_object
