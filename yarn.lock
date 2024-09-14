@@ -1520,7 +1520,7 @@ __metadata:
     "@babel/runtime": ^7.23.0
     "@haixing_hu/naming-style": ^1.3.0
     "@haixing_hu/type-detect": ^1.1.0
-    "@haixing_hu/typeinfo": ^2.5.2
+    "@haixing_hu/typeinfo": ^3.0.0
   languageName: unknown
   linkType: soft
 
