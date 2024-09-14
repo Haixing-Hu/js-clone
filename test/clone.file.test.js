@@ -11,7 +11,7 @@ import {
   FILE_EXISTS,
   FILE_LIST_EXISTS,
   FILE_READER_EXISTS,
-} from '@haixing_hu/typeinfo';
+} from '@haixing_hu/type-detect';
 import clone from '../src';
 
 describe('clone File API objects', () => {

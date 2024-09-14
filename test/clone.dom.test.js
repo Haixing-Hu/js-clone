@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { DOM_NODE_EXISTS } from '@haixing_hu/typeinfo';
+import { DOM_NODE_EXISTS } from '@haixing_hu/type-detect';
 import clone from '../src';
 
 describe('clone DOM objects', () => {

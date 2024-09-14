@@ -44,15 +44,15 @@
 
 ## <span id="installation">安装</span>
 
-此函数库依赖 [typeinfo] 函数库，因此需要先安装 [typeinfo] 函数库。
+此函数库依赖[naming-style]、[type-detect]和[typeinfo]函数库，因此需要先安装它们。
 
 通过 npm 安装：
 ```bash
-npm install @haixing_hu/typeinfo @haixing_hu/clone
+npm install @babel/runtime @haixing_hu/naming-style @haixing_hu/type-detect @haixing_hu/typeinfo @haixing_hu/clone
 ```
 或者通过 `yarn` 安装
 ```bash
-yarn add @haixing_hu/typeinfo @haixing_hu/clone
+yarn add @babel/runtime @haixing_hu/naming-style @haixing_hu/type-detect @haixing_hu/typeinfo @haixing_hu/clone
 ```
 
 ## <span id="usage">使用方法</span>
@@ -373,6 +373,8 @@ unregisterCloneHook(customCloneHook);
 - [Haixing Hu](https://github.com/haixing-hu)
 
 
+[naming-style]: https://npmjs.com/package/@haixing_hu/naming-style
+[type-detect]: https://npmjs.com/package/@haixing_hu/type-detect
 [typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
 [typeInfo()]: https://npmjs.com/package/@haixing_hu/typeinfo
 [clone]: https://npmjs.com/package/@haixing_hu/clone

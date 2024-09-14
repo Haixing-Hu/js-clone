@@ -7,7 +7,7 @@ import {
   REGEXP_ITERATOR_EXISTS,
   SET_ITERATOR_EXISTS,
   STRING_ITERATOR_EXISTS,
-} from '@haixing_hu/typeinfo';
+} from '@haixing_hu/type-detect';
 //
 //    Copyright (c) 2022 - 2023.
 //    Haixing Hu, Qubit Co. Ltd.

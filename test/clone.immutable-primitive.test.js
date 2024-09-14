@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { BIGINT_EXISTS } from '@haixing_hu/typeinfo';
+import { BIGINT_EXISTS } from '@haixing_hu/type-detect';
 import clone from '../src';
 
 /**

@@ -55,16 +55,16 @@ This library has the following features which is not supported by the built-in
 
 ## <span id="installation">Installation</span>
 
-This library depends on the [typeinfo] library, so it's necessary to install 
-[typeinfo] first.
+This library depends on the [naming-style], [type-detect] and [typeinfo] libraries, 
+so it is necessary to install them first.
 
 Install via npm:
 ```bash
-npm install @haixing_hu/typeinfo @haixing_hu/clone
+npm install @babel/runtime @haixing_hu/naming-style @haixing_hu/type-detect @haixing_hu/typeinfo @haixing_hu/clone
 ```
 Or install via `yarn`:
 ```bash
-yarn add @haixing_hu/typeinfo @haixing_hu/clone
+yarn add @babel/runtime @haixing_hu/naming-style @haixing_hu/type-detect @haixing_hu/typeinfo @haixing_hu/clone
 ```
 
 ## <span id="usage">Usage</span>
@@ -419,6 +419,8 @@ open an issue or submit a pull request in the [GitHub repository].
 
 - [Haixing Hu](https://github.com/haixing-hu)
 
+[naming-style]: https://npmjs.com/package/@haixing_hu/naming-style
+[type-detect]: https://npmjs.com/package/@haixing_hu/type-detect
 [typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
 [typeInfo()]: https://npmjs.com/package/@haixing_hu/typeinfo
 [clone]: https://npmjs.com/package/@haixing_hu/clone

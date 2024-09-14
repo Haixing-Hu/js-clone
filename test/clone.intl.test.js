@@ -17,7 +17,7 @@ import {
   INTL_PLURALRULES_EXISTS,
   INTL_RELATIVETIMEFORMAT_EXISTS,
   INTL_SEGMENTER_EXISTS,
-} from '@haixing_hu/typeinfo';
+} from '@haixing_hu/type-detect';
 import clone from '../src';
 
 /**
