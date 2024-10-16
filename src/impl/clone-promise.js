@@ -20,6 +20,7 @@ import copyProperties from './copy-properties';
  *     The object cache used to prevent circular references.
  * @returns {Promise}
  *     The cloned promise.
+ * @private
  * @author Haixing Hu
  */
 function clonePromise(source, options, cache) {

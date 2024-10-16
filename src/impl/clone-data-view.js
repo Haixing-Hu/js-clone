@@ -21,6 +21,7 @@ import copyProperties from './copy-properties';
  *     The object cache used to prevent circular references.
  * @returns {DataView}
  *     The cloned `DataView` object.
+ * @private
  * @author Haixing Hu
  */
 function cloneDataView(source, options, cache) {

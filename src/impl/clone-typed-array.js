@@ -32,6 +32,7 @@ import copyProperties from './copy-properties';
  *     The object cache used to prevent circular references.
  * @return {TypedArray}
  *     The cloned typed array.
+ * @private
  * @author Haixing Hu
  */
 function cloneTypedArray(source, options, cache) {

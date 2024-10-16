@@ -33,6 +33,7 @@ import getTargetKey from './get-target-key';
  * @param {WeakMap} cache
  *     The object cache used to prevent circular references.
  * @see https://v2.vuejs.org/v2/guide/reactivity.html
+ * @private
  * @author Haixing Hu
  */
 function copyProperties(source, target, options, cache) {

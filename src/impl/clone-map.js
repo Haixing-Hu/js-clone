@@ -21,6 +21,7 @@ import copyProperties from './copy-properties';
  *     The object cache used to prevent circular references.
  * @returns {Map}
  *     The cloned map.
+ * @private
  * @author Haixing Hu
  */
 function cloneMap(source, options, cache) {

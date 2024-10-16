@@ -22,6 +22,8 @@ import copyProperties from './copy-properties';
  * @returns {Object}
  *     The cloned object, which have the same type as the source object, and
  *     preserves the same monkey-patched properties as the source object.
+ * @private
+ * @author Haixing Hu
  */
 function clonePrimitiveWrapperObject(source, options, cache) {
   // Note that a `Boolean` object cannot be used to copy construct a cloned copy.

@@ -21,6 +21,7 @@ import copyProperties from './copy-properties';
  *     The object cache used to prevent circular references.
  * @returns {Array}
  *     The target array.
+ * @private
  * @author Haixing Hu
  */
 function cloneArray(source, options, cache) {

@@ -11,8 +11,8 @@
  * The list of hook functions for cloning customized objects.
  *
  * @type {Array<Function>}
- * @author Haixing Hu
  * @private
+ * @author Haixing Hu
  */
 const CLONE_HOOKS = [];
 

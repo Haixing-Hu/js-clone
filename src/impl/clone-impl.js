@@ -22,6 +22,7 @@ import cloneObjectImpl from './clone-object-impl';
  *     The object cache used to prevent circular references.
  * @return {any}
  *     The deep clone of the specified object.
+ * @private
  * @author Haixing Hu
  */
 function cloneImpl(source, options, cache) {

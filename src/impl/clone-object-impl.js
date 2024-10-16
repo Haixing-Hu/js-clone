@@ -32,6 +32,7 @@ import cloneTypedArray from './clone-typed-array';
  *     The object cache used to prevent circular references.
  * @return {any}
  *     The deep clone of the specified object.
+ * @private
  * @author Haixing Hu
  */
 function cloneObjectImpl(info, source, options, cache) {

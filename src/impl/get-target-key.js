@@ -13,6 +13,7 @@ import { NamingStyle } from '@haixing_hu/naming-style';
  *
  * @type {Readonly<NamingStyle>}
  * @private
+ * @author Haixing Hu
  */
 const DEFAULT_NAMING_STYLE = NamingStyle.LOWER_CAMEL;
 
@@ -23,8 +24,8 @@ const DEFAULT_NAMING_STYLE = NamingStyle.LOWER_CAMEL;
  *    the specified naming style.
  * @return {Readonly<NamingStyle>}
  *    the effective naming style.
- * @author Haixing Hu
  * @private
+ * @author Haixing Hu
  */
 function getNamingStyle(style) {
   if (style === null || style === undefined) {
@@ -44,8 +45,8 @@ function getNamingStyle(style) {
  *     The options of the cloning algorithm.
  * @return {string}
  *     The corresponding key of the target object.
- * @author Haixing Hu
  * @private
+ * @author Haixing Hu
  */
 function getTargetKey(sourceKey, options) {
   if (options && (options.convertNaming === true)) {

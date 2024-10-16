@@ -21,6 +21,7 @@ import copyProperties from './copy-properties';
  *     The object cache used to prevent circular references.
  * @returns {Set}
  *     The cloned set.
+ * @private
  * @author Haixing Hu
  */
 function cloneSet(source, options, cache) {

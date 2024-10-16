@@ -21,6 +21,7 @@ import copyProperties from './copy-properties';
  *     The object cache used to prevent circular references.
  * @returns {Error}
  *     The cloned `Error` object, which have the same type as the source object.
+ * @private
  * @author Haixing Hu
  */
 function cloneError(source, options, cache) {

@@ -20,6 +20,7 @@ import copyProperties from './copy-properties';
  *     The object cache used to prevent circular references.
  * @return {ArrayBuffer|SharedArrayBuffer}
  *     The cloned buffer.
+ * @private
  * @author Haixing Hu
  */
 function cloneBuffer(source, options, cache) {
