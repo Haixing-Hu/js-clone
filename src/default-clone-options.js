@@ -1,0 +1,109 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//    Copyright (c) 2022 - 2024.
+//    Haixing Hu, Qubit Co. Ltd.
+//
+//    All rights reserved.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * The default options of the cloning algorithm.
+ *
+ * @type {object}
+ */
+const DEFAULT_CLONE_OPTIONS = {
+  /**
+   * If this options is set to `true`, the cloning algorithm will clone the
+   * accessors of the properties (i.e. getters and setters) from the source object.
+   *
+   * The default value of this option is `false`.
+   */
+  includeAccessor: false,
+
+  /**
+   * If this options is set to `true`, the cloning algorithm will **NOT** clone
+   * the readonly attributes from the source object.
+   *
+   * The default value of this option is `false`.
+   */
+  excludeReadonly: false,
+
+  /**
+   * If this options is set to `true`, the cloning algorithm will clone the
+   * non-enumerable attributes from the source object.
+   *
+   * The default value of this option is `false`.
+   */
+  includeNonEnumerable: false,
+
+  /**
+   * If this options is set to `true`, the cloning algorithm will clone the
+   * non-configurable attributes from the source object.
+   *
+   * The default value of this option is `false`.
+   */
+  includeNonConfigurable: false,
+
+  /**
+   * If this options is set to `true`, the cloning algorithm will convert the
+   * names of the properties of the target object according to the specified
+   * naming styles.
+   *
+   * The default value of this option is `false`.
+   */
+  convertNaming: false,
+
+  /**
+   * The naming style of the source object.
+   *
+   * This option is only effective when the `convertNaming` option is set to `true`.
+   *
+   * The value of this options can be either a string representing the name of
+   * the naming style, or a `NamingStyle` instance.
+   *
+   * The default value is `LOWER_CAMEL`.
+   */
+  sourceNamingStyle: 'LOWER_CAMEL',
+
+  /**
+   * The naming style of the target object.
+   *
+   * This option is only effective when the `convertNaming` option is set to `true`.
+   *
+   * The value of this options can be either a string representing the name of
+   * the naming style, or a `NamingStyle` instance.
+   *
+   * The default value is `LOWER_CAMEL`.
+   */
+  targetNamingStyle: 'LOWER_CAMEL',
+
+  /**
+   * If this options is set to `true`, the cloning algorithm will convert the
+   * source object to a plain old JavaScript object (POJO).
+   *
+   * The default value of this option is `false`.
+   */
+  pojo: false,
+
+  /**
+   * If this options is set to `true`, the cloning algorithm will recursively
+   * remove the empty fields of the source object before cloning.
+   *
+   * An empty field refers to a field with a value of `null`, `undefined`, an
+   * empty string, an empty array, or an empty set.
+   *
+   * The default value of this option is `false`.
+   */
+  removeEmptyFields: false,
+
+  /**
+   * If this options is set to `true`, the cloning algorithm will disable the
+   * cloning hooks.
+   *
+   * The default value of this option is `false`.
+   */
+  disableHooks: false,
+};
+
+export default DEFAULT_CLONE_OPTIONS;

@@ -11,6 +11,7 @@ import registerCloneHook from './register-clone-hook';
 import unregisterCloneHook from './unregister-clone-hook';
 import cloneImpl from './impl/clone-impl';
 import copyProperties from './impl/copy-properties';
+import DEFAULT_CLONE_OPTIONS from './default-clone-options';
 
 export {
   clone,
@@ -18,6 +19,7 @@ export {
   copyProperties,
   registerCloneHook,
   unregisterCloneHook,
+  DEFAULT_CLONE_OPTIONS,
 };
 
 export default clone;

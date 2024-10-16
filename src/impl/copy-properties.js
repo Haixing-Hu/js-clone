@@ -9,6 +9,7 @@
 /* eslint-disable import/no-cycle */
 import cloneImpl from './clone-impl';
 import getTargetKey from './get-target-key';
+import isEmpty from './is-empty';
 
 /**
  * Copies the properties of the source object to the target object.
@@ -60,7 +61,11 @@ function copyProperties(source, target, options, cache) {
     const value = source[sourceKey];
     const targetKey = getTargetKey(sourceKey, options);
     // eslint-disable-next-line no-use-before-define
-    target[targetKey] = cloneImpl(value, options, cache); // recursive call
+    if (options.removeEmptyFields && isEmpty(value)) {
+      delete target[targetKey];
+    } else {
+      target[targetKey] = cloneImpl(value, options, cache); // recursive call
+    }
   }
 }
 

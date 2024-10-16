@@ -224,4 +224,64 @@ describe('clone objects of a customized class with naming conversion', () => {
     expect(result.second_field.second_child_field.the_person).toBeInstanceOf(Object);
     expectAlike(result.second_field.second_child_field.the_person, person);
   });
+
+  test('clone(object, { convertNaming: true, pojo: true, removeEmptyFields: true })', () => {
+    const person = new Person();
+    person.id = '0';
+    person.name = undefined;
+    person.credential = new Credential(CredentialType.IDENTITY_CARD.value, '123');
+    person.gender = null;
+    person.birthday = '';
+    person.mobile = '12039495';
+    person.email = '';
+    class Foo {
+      firstField = 'first-field';
+
+      secondField = {
+        firstChildField: 'first-child-field',
+        secondChildField: {
+          thePerson: person,
+        },
+        emptyMapValue: new Map(),
+        nonEmptyMapValue: new Map([['a', 1], ['b', 2], ['c', 3]]),
+      };
+
+      emptyArrayValue = [];
+
+      emptySetValue = new Set();
+
+      nonEmptyArrayValue = [1, 2, 3];
+
+      nonEmptySetValue = new Set([1, 2, 3]);
+    }
+    const obj = new Foo();
+    const result = clone(obj, {
+      convertNaming: true,
+      targetNamingStyle: 'LOWER_UNDERSCORE',
+      pojo: true,
+      removeEmptyFields: true,
+    });
+    expect(result).toBeInstanceOf(Object);
+    expect(result.first_field).toBe(obj.firstField);
+    expect(result.second_field).toBeInstanceOf(Object);
+    expect(result.second_field.first_child_field).toBe(obj.secondField.firstChildField);
+    expect(result.second_field.second_child_field).toBeInstanceOf(Object);
+    expect(result.second_field.second_child_field.the_person).toBeInstanceOf(Object);
+    expect(result.second_field.second_child_field.the_person.id).toBe(person.id);
+    expect(Object.hasOwn(result.second_field.second_child_field.the_person, 'name')).toBe(false);
+    expect(result.second_field.second_child_field.the_person.credential).toBeInstanceOf(Object);
+    expect(result.second_field.second_child_field.the_person.credential.type).toBe(person.credential.type);
+    expect(result.second_field.second_child_field.the_person.credential.number).toBe(person.credential.number);
+    expect(Object.hasOwn(result.second_field.second_child_field.the_person, 'gender')).toBe(false);
+    expect(Object.hasOwn(result.second_field.second_child_field.the_person, 'birthday')).toBe(false);
+    expect(result.second_field.second_child_field.the_person.mobile).toBe(person.mobile);
+    expect(Object.hasOwn(result.second_field.second_child_field.the_person, 'email')).toBe(false);
+    expect(Object.hasOwn(result.second_field, 'empty_map_value')).toBe(false);
+    expect(result.second_field.non_empty_map_value).toBeInstanceOf(Map);
+    expect(result.second_field.non_empty_map_value).toEqual(obj.secondField.nonEmptyMapValue);
+    expect(Object.hasOwn(result, 'empty_array_value')).toBe(false);
+    expect(Object.hasOwn(result, 'empty_set_value')).toBe(false);
+    expect(result.non_empty_array_value).toEqual(obj.nonEmptyArrayValue);
+    expect(result.non_empty_set_value).toEqual(obj.nonEmptySetValue);
+  });
 });

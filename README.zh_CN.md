@@ -96,12 +96,17 @@ expect(copy2.credential).toBeInstanceOf(Credential);
     此选项的默认值为 `false`。
   - `sourceNamingStyle: string | NamingStyle`, 源对象的命名样式。该选项仅在 `convertNaming` 
     选项设置为 `true` 时有效。该选项的值可以是表示命名样式名称的字符串，也可以是一个
-    `NamingStyle` 实例。默认值为 `NamingStyle.LOWER_CAMEL`。
+    `NamingStyle` 实例。默认值为 `LOWER_CAMEL`。
   - `targetNamingStyle: string | NamingStyle`, 目标对象（即克隆结果对象）的命名样式。
     该选项仅在 `convertNaming` 选项设置为 `true` 时有效。该选项的值可以是表示命名样式名称
-    的字符串，也可以是一个`NamingStyle` 实例。默认值为 `NamingStyle.LOWER_CAMEL`。
+    的字符串，也可以是一个`NamingStyle` 实例。默认值为 `LOWER_CAMEL`。
   - `pojo: boolean` - 如果此选项设置为 `true`，克隆算法将把源对象转换为普通的 JavaScript 
     对象 (POJO)。此选项的默认值为`false`。
+  - `removeEmptyFields: boolean` - 如果此选项设置为 `true`，克隆算法将在克隆之前递归地移
+    除源对象的空字段。所谓空字段，是指值为`null`，`undefined`，空字符串，空数组，空集合的字段。
+    此选项的默认值为`false`。
+  - `disableHooks: boolean` - 如果此选项设置为 `true`，克隆算法将禁用克隆钩子函数。
+    此选项的默认值为 `false`。
 
 克隆函数支持对 JavaScript 内置对象的克隆，包括但不限于 primitive 类型、数组、`Map`、`Set`等。
 具体的支持如下：

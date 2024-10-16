@@ -9,33 +9,6 @@
 import { NamingStyle } from '@haixing_hu/naming-style';
 
 /**
- * The default naming style.
- *
- * @type {Readonly<NamingStyle>}
- * @private
- * @author Haixing Hu
- */
-const DEFAULT_NAMING_STYLE = NamingStyle.LOWER_CAMEL;
-
-/**
- * Gets the naming style from the specified style.
- *
- * @param {null|undefined|string|NamingStyle} style
- *    the specified naming style.
- * @return {Readonly<NamingStyle>}
- *    the effective naming style.
- * @private
- * @author Haixing Hu
- */
-function getNamingStyle(style) {
-  if (style === null || style === undefined) {
-    return DEFAULT_NAMING_STYLE;
-  } else {
-    return NamingStyle.of(style);
-  }
-}
-
-/**
  * Gets the key of the target object from the corresponding key of the source
  * object.
  *
@@ -50,8 +23,8 @@ function getNamingStyle(style) {
  */
 function getTargetKey(sourceKey, options) {
   if (options && (options.convertNaming === true)) {
-    const sourceNamingStyle = getNamingStyle(options.sourceNamingStyle);
-    const targetNamingStyle = getNamingStyle(options.targetNamingStyle);
+    const sourceNamingStyle = NamingStyle.of(options.sourceNamingStyle);
+    const targetNamingStyle = NamingStyle.of(options.targetNamingStyle);
     return sourceNamingStyle.to(targetNamingStyle, sourceKey);
   } else {
     return sourceKey;

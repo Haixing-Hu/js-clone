@@ -47,11 +47,13 @@ function cloneImpl(source, options, cache) {
     return cache.get(source);
   }
   // deal with cloning hooks
-  for (const hook of CLONE_HOOKS) {
-    const result = hook(info, source, options);
-    if (result !== undefined && result !== null) {
-      cache.set(source, result);
-      return result;
+  if (!options.disableHooks) {
+    for (const hook of CLONE_HOOKS) {
+      const result = hook(info, source, options);
+      if (result !== undefined && result !== null) {
+        cache.set(source, result);
+        return result;
+      }
     }
   }
   // clone the general object

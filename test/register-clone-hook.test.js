@@ -131,4 +131,28 @@ describe('clone built-in arguments object', () => {
     expect(unregisterCloneHook(credentialHook)).toBe(true);
     expect(hookCalls).toBe(0);
   });
+
+  test('Test register a clone hook but disable hooks while cloning', () => {
+    let hookCalls = 0;
+    function credentialHook(info, obj) {
+      if (info.constructor === Credential) {
+        ++hookCalls;
+        return obj;
+      }
+      return null;
+    }
+    registerCloneHook(credentialHook);
+    expect(hookCalls).toBe(0);
+    const credential = new Credential();
+    expect(clone(credential)).toBe(credential);
+    expect(hookCalls).toBe(1);
+    const obj = {
+      x: 1,
+      c: new Credential(),
+    };
+    const cloned = clone(obj, { disableHooks: true });
+    expect(hookCalls).toBe(1);
+    expect(cloned).toEqual(obj);
+    expect(cloned.c).toEqual(obj.c);
+  });
 });

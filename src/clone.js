@@ -7,6 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 import cloneImpl from './impl/clone-impl';
+import DEFAULT_CLONE_OPTIONS from './default-clone-options';
 
 /**
  * Deep clones a value or an object.
@@ -39,15 +40,23 @@ import cloneImpl from './impl/clone-impl';
  *   object. This option is only effective when the `convertNaming` option is
  *   set to `true`. The value of this options can be either a string representing
  *   the name of the naming style, or a `NamingStyle` instance. The default
- *   value is `NamingStyle.LOWER_CAMEL`.
+ *   value is `LOWER_CAMEL`.
  * - `targetNamingStyle: string | NamingStyle`, the naming style of the target
  *   object. This option is only effective when the `convertNaming` option is
  *   set to `true`. The value of this options can be either a string representing
  *   the name of the naming style, or a `NamingStyle` instance. The default
- *   value is `NamingStyle.LOWER_CAMEL`.
+ *   value is `LOWER_CAMEL`.
  * - `pojo: boolean` - If this options is set to `true`, the cloning algorithm
  *   will convert the source object to a plain old JavaScript object (POJO).
  *   The default value of this option is `false`.
+ * - `removeEmptyFields: boolean` - If this options is set to `true`, the cloning
+ *   algorithm will recursively remove the empty fields of the source object
+ *   before cloning. An empty field refers to a field with a value of `null`,
+ *   `undefined`, an empty string, an empty array, or an empty set. The default
+ *   value of this option is `false`.
+ * - `disableHooks: boolean` - If this options is set to `true`, the cloning
+ *   algorithm will disable the cloning hooks. The default value of this option
+ *   is `false`.
  *
  * Usage examples:
  * ```js
@@ -75,6 +84,7 @@ function clone(source, options = {}) {
   // and return from this cache when possible.
   // Note that we only store certain values, like Arrays or plain object.
   const cache = new WeakMap();
+  options = { ...DEFAULT_CLONE_OPTIONS, ...options };
   return cloneImpl(source, options, cache);
 }
 
