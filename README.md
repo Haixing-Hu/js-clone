@@ -120,6 +120,9 @@ Deep clones a value or object.
       `convertNaming` option is set to `true`. The value of this options can be 
       either a string representing the name of the naming style, or a 
       `NamingStyle` instance. The default value is `NamingStyle.LOWER_CAMEL`.
+    - `pojo: boolean` - If this options is set to `true`, the cloning algorithm
+      will convert the source object to a plain old JavaScript object (POJO).
+      The default value of this option is `false`.
 
 The clone function supports cloning customized objects as well as JavaScript 
 built-in values and objects, including but not limited to primitive types, 

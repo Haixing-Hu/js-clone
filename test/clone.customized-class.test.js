@@ -168,25 +168,60 @@ describe('clone objects of a customized class with naming conversion', () => {
     person.birthday = '1990-01-01';
     person.mobile = '12039495';
     person.email = 'i@i.com';
-    const obj = {
-      firstField: 'first-field',
-      secondField: {
+    class Foo {
+      firstField = 'first-field';
+
+      secondField = {
         firstChildField: 'first-child-field',
         secondChildField: {
           thePerson: person,
         },
-      },
-    };
+      };
+    }
+    const obj = new Foo();
     const result = clone(obj, {
       convertNaming: true,
       targetNamingStyle: 'LOWER_UNDERSCORE',
+    });
+    expect(result).toBeInstanceOf(Foo);
+    expect(result.first_field).toBe(obj.firstField);
+    expect(result.second_field).toBeInstanceOf(Object);
+    expect(result.second_field.first_child_field).toBe(obj.secondField.firstChildField);
+    expect(result.second_field.second_child_field).toBeInstanceOf(Object);
+    expect(result.second_field.second_child_field.the_person).toBeInstanceOf(Person);
+    expectAlike(result.second_field.second_child_field.the_person, person);
+  });
+  test('clone(object, { convertNaming: true, pojo: true }), no sourceNamingStyle', () => {
+    const person = new Person();
+    person.id = '0';
+    person.name = 'name';
+    person.credential = new Credential(CredentialType.IDENTITY_CARD.value, '123');
+    person.gender = Gender.MALE.value;
+    person.birthday = '1990-01-01';
+    person.mobile = '12039495';
+    person.email = 'i@i.com';
+    class Foo {
+      firstField = 'first-field';
+
+      secondField = {
+        firstChildField: 'first-child-field',
+        secondChildField: {
+          thePerson: person,
+        },
+      };
+    }
+    const obj = new Foo();
+    const result = clone(obj, {
+      convertNaming: true,
+      targetNamingStyle: 'LOWER_UNDERSCORE',
+      pojo: true,
     });
     expect(result).toBeInstanceOf(Object);
     expect(result.first_field).toBe(obj.firstField);
     expect(result.second_field).toBeInstanceOf(Object);
     expect(result.second_field.first_child_field).toBe(obj.secondField.firstChildField);
     expect(result.second_field.second_child_field).toBeInstanceOf(Object);
-    expect(result.second_field.second_child_field.the_person).toBeInstanceOf(Person);
+    expect(result.second_field.second_child_field.the_person).toBeInstanceOf(Object);
     expectAlike(result.second_field.second_child_field.the_person, person);
   });
 });
