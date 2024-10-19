@@ -107,6 +107,8 @@ expect(copy2.credential).toBeInstanceOf(Credential);
     此选项的默认值为`false`。
   - `disableHooks: boolean` - 如果此选项设置为 `true`，克隆算法将禁用克隆钩子函数。
     此选项的默认值为 `false`。
+  - `useToJSON: boolean` - 如果此选项设置为 `true`，并且源对象具有 `toJSON()` 方法，
+    克隆算法将使用源对象的 `toJSON()` 方法生成目标对象。此选项的默认值为 `false`。
 
 克隆函数支持对 JavaScript 内置对象的克隆，包括但不限于 primitive 类型、数组、`Map`、`Set`等。
 具体的支持如下：

@@ -131,6 +131,10 @@ Deep clones a value or object.
     - `disableHooks: boolean` - If this options is set to `true`, the cloning
       algorithm will disable the cloning hooks. The default value of this option
       is `false`.
+    - `useToJSON: boolean` - If this options is set to `true`, and the source object
+      has a `toJSON()` method, the cloning algorithm will use the `toJSON()` method
+      of the source object to generate the target object. The default value of this
+      option is `false`.
 
 The clone function supports cloning customized objects as well as JavaScript 
 built-in values and objects, including but not limited to primitive types, 
