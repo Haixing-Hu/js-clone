@@ -217,4 +217,18 @@ describe('clone plain objects', () => {
     Object.defineProperty(object2, 'getter', getterOptions);
     testMonkeyPatchedSelfReference(object2);
   });
+  describe('with removeEmptyFields option', () => {
+    test('should remove empty fields if removeEmptyFields is true', () => {
+      const obj = { a: 1, b: '', c: null, d: undefined };
+      const options = { removeEmptyFields: true };
+      const result = clone(obj, options);
+      expect(result).toEqual({ a: 1 });
+    });
+    test('should not remove empty fields if removeEmptyFields is false', () => {
+      const obj = { a: 1, b: '', c: null, d: undefined };
+      const options = { removeEmptyFields: false };
+      const result = clone(obj, options);
+      expect(result).toEqual(obj);
+    });
+  });
 });
