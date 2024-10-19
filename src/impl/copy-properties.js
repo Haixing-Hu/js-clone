@@ -25,11 +25,11 @@ import isEmpty from './is-empty';
  * For the reactivity of Vue.js, see:
  * <a href="https://v2.vuejs.org/v2/guide/reactivity.html">Reactivity</a>
  *
- * @param {Object} source
+ * @param {object} source
  *     The source object.
- * @param {Object} target
+ * @param {object} target
  *     The target object.
- * @param {Object} options
+ * @param {object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
  *     The object cache used to prevent circular references.
@@ -64,7 +64,7 @@ function copyProperties(source, target, options, cache) {
     if (options.removeEmptyFields && isEmpty(value)) {
       delete target[targetKey];
     } else {
-      target[targetKey] = cloneImpl(value, options, cache); // recursive call
+      target[targetKey] = cloneImpl(value, sourceKey, options, cache); // recursive call
     }
   }
 }

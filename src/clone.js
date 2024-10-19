@@ -57,6 +57,10 @@ import DEFAULT_CLONE_OPTIONS from './default-clone-options';
  * - `disableHooks: boolean` - If this options is set to `true`, the cloning
  *   algorithm will disable the cloning hooks. The default value of this option
  *   is `false`.
+ * - `useToJSON: boolean` - If this options is set to `true`, and the source object
+ *   has a `toJSON()` method, the cloning algorithm will use the `toJSON()` method
+ *   of the source object to generate the target object. The default value of this
+ *   option is `false`.
  *
  * Usage examples:
  * ```js
@@ -85,7 +89,7 @@ function clone(source, options = {}) {
   // Note that we only store certain values, like Arrays or plain object.
   const cache = new WeakMap();
   options = { ...DEFAULT_CLONE_OPTIONS, ...options };
-  return cloneImpl(source, options, cache);
+  return cloneImpl(source, '', options, cache);
 }
 
 export default clone;

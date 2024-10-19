@@ -32,22 +32,22 @@ function createCustomizedObject(source, options) {
 /**
  * Clone a user-defined object.
  *
- * @param {Object} source
+ * @param {object} source
  *     The source object.
- * @param {Object} options
+ * @param {object} options
  *     Options of the cloning algorithm.
  * @param {WeakMap} cache
  *     The object cache used to prevent circular references.
- * @returns {Object}
+ * @returns {object}
  *     The target object.
  * @private
  * @author Haixing Hu
  */
 function cloneCustomizedObject(source, options, cache) {
-  const result = createCustomizedObject(source, options);
-  cache.set(source, result);
-  copyProperties(source, result, options, cache);
-  return result;
+  const target = createCustomizedObject(source, options);
+  cache.set(source, target);
+  copyProperties(source, target, options, cache);
+  return target;
 }
 
 export default cloneCustomizedObject;

@@ -25,7 +25,7 @@ import cloneTypedArray from './clone-typed-array';
  * @param {Object} info
  *     The type information about the object to be cloned.
  * @param {any} source
- *     The object to be cloned.
+ *     The source object to be cloned.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache

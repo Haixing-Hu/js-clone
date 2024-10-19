@@ -33,7 +33,7 @@ function cloneSet(source, options, cache) {
   copyProperties(source, result, options, cache);
   // copy all items in the set
   for (const value of source) {
-    const newValue = cloneImpl(value, options, cache);
+    const newValue = cloneImpl(value, '', options, cache);
     result.add(newValue);
   }
   return result;

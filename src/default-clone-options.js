@@ -104,6 +104,17 @@ const DEFAULT_CLONE_OPTIONS = {
    * The default value of this option is `false`.
    */
   disableHooks: false,
+
+  /**
+   * If this options is set to `true`, and the source object has a `toJSON()`
+   * method, the cloning algorithm will use the result of the `toJSON()` method
+   * as the result of the cloning.
+   *
+   * The default value of this option is `false`.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+   */
+  useToJSON: false,
 };
 
 export default DEFAULT_CLONE_OPTIONS;

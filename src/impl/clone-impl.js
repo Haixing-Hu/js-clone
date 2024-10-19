@@ -15,7 +15,10 @@ import cloneObjectImpl from './clone-object-impl';
  * The implementation of the `clone` function.
  *
  * @param {any} source
- *     The object to be cloned.
+ *     The source object to be cloned.
+ * @param {string} key
+ *     The key of the source object in its parent object.
+ *     This parameter is used to support the `toJSON()` method.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -25,7 +28,10 @@ import cloneObjectImpl from './clone-object-impl';
  * @private
  * @author Haixing Hu
  */
-function cloneImpl(source, options, cache) {
+function cloneImpl(source, key, options, cache) {
+  if (options.useToJSON && (typeof source.toJSON === 'function')) {
+    return source.toJSON(key);
+  }
   const info = typeInfo(source);
   switch (info.type) {
     case 'undefined':               // drop down

@@ -33,8 +33,8 @@ function cloneMap(source, options, cache) {
   copyProperties(source, result, options, cache);
   // copy all entries in the map
   for (const [key, value] of source.entries()) {
-    const newKey = cloneImpl(key, options, cache);
-    const newValue = cloneImpl(value, options, cache);
+    const newKey = cloneImpl(key, '', options, cache);
+    const newValue = cloneImpl(value, '', options, cache);
     result.set(newKey, newValue);
   }
   return result;
