@@ -26,6 +26,9 @@ import cloneTypedArray from './clone-typed-array';
  *     The type information about the object to be cloned.
  * @param {any} source
  *     The source object to be cloned.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -35,31 +38,31 @@ import cloneTypedArray from './clone-typed-array';
  * @private
  * @author Haixing Hu
  */
-function cloneObjectImpl(info, source, options, cache) {
+function cloneObjectImpl(info, source, depth, options, cache) {
   switch (info.category) {
     case 'string':
     case 'boolean':
     case 'numeric':
-      return clonePrimitiveWrapperObject(source, options, cache);
+      return clonePrimitiveWrapperObject(source, depth, options, cache);
     case 'date':                    // drop down
     case 'regexp':
-      return cloneCopyConstructableObject(source, options, cache);
+      return cloneCopyConstructableObject(source, depth, options, cache);
     case 'map':
-      return cloneMap(source, options, cache);
+      return cloneMap(source, depth, options, cache);
     case 'set':
-      return cloneSet(source, options, cache);
+      return cloneSet(source, depth, options, cache);
     case 'array':
-      return cloneArray(source, options, cache);
+      return cloneArray(source, depth, options, cache);
     case 'typed-array':
-      return cloneTypedArray(source, options, cache);
+      return cloneTypedArray(source, depth, options, cache);
     case 'buffer':
-      return cloneBuffer(source, options, cache);
+      return cloneBuffer(source, depth, options, cache);
     case 'data-view':
-      return cloneDataView(source, options, cache);
+      return cloneDataView(source, depth, options, cache);
     case 'promise':
-      return clonePromise(source, options, cache);
+      return clonePromise(source, depth, options, cache);
     case 'error':
-      return cloneError(source, options, cache);
+      return cloneError(source, depth, options, cache);
     case 'weak':                    // weak referenced cannot be cloned :(
     case 'intl':                    // Intl objects are immutable and cannot be cloned
     case 'iterator':                // iterators cannot be cloned :(
@@ -77,7 +80,7 @@ function cloneObjectImpl(info, source, options, cache) {
     case 'class':                   // drop down
     default:
       // clone all other objects, including user defined objects
-      return cloneCustomizedObject(source, options, cache);
+      return cloneCustomizedObject(source, depth, options, cache);
   }
 }
 

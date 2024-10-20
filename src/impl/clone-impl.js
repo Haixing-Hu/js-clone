@@ -12,24 +12,49 @@ import CLONE_HOOKS from './clone-hooks';
 import cloneObjectImpl from './clone-object-impl';
 
 /**
+ * Determines whether the `toJSON()` method should be used to clone the source
+ * object.
+ *
+ * @param {any} source
+ *     The source value to be cloned.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
+ * @param {object} options
+ *     The options of the cloning algorithm.
+ * @return {boolean}
+ *     `true` if the `toJSON()` method should be used to clone the source object;
+ *     `false` otherwise.
+ * @private
+ * @author Haixing Hu
+ */
+function shouldUseToJSON(source, depth, options) {
+  return options.useToJSON
+    && (typeof source?.toJSON === 'function')
+    && (depth !== 0 || !options.skipRootToJSON);
+}
+
+/**
  * The implementation of the `clone` function.
  *
  * @param {any} source
- *     The source object to be cloned.
+ *     The source value to be cloned.
  * @param {string} key
  *     The key of the source object in its parent object.
  *     This parameter is used to support the `toJSON()` method.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
  *     The object cache used to prevent circular references.
  * @return {any}
  *     The deep clone of the specified object.
- * @private
  * @author Haixing Hu
  */
-function cloneImpl(source, key, options, cache) {
-  if (options.useToJSON && (typeof source.toJSON === 'function')) {
+function cloneImpl(source, key, depth, options, cache) {
+  if (shouldUseToJSON(source, depth, options)) {
     return source.toJSON(key);
   }
   const info = typeInfo(source);
@@ -63,7 +88,7 @@ function cloneImpl(source, key, options, cache) {
     }
   }
   // clone the general object
-  return cloneObjectImpl(info, source, options, cache);
+  return cloneObjectImpl(info, source, depth, options, cache);
 }
 
 export default cloneImpl;

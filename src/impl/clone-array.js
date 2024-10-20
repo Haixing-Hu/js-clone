@@ -15,6 +15,9 @@ import copyProperties from './copy-properties';
  *
  * @param {Array} source
  *     The source array.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {Object} options
  *     Options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -24,7 +27,7 @@ import copyProperties from './copy-properties';
  * @private
  * @author Haixing Hu
  */
-function cloneArray(source, options, cache) {
+function cloneArray(source, depth, options, cache) {
   const result = [];
   cache.set(source, result);
   const keys = Reflect.ownKeys(source);
@@ -35,7 +38,7 @@ function cloneArray(source, options, cache) {
     for (i = 0; i < source.length; i++) {
       if (i in source) {
         // eslint-disable-next-line no-use-before-define
-        result.push(cloneImpl(source[i], String(i), options, cache));
+        result.push(cloneImpl(source[i], String(i), depth + 1, options, cache));
       } else {  // Array is sparse
         break wellBehaved;        // eslint-disable-line no-labels
       }
@@ -47,7 +50,7 @@ function cloneArray(source, options, cache) {
   }
   // Generic fallback
   result.length = 0;
-  copyProperties(source, result, options, cache);
+  copyProperties(source, result, depth, options, cache);
   return result;
 }
 

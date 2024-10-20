@@ -26,6 +26,9 @@ import copyProperties from './copy-properties';
  *     - `BigUint64Array`: 64-bit unsigned integer array.
  *     - `Float32Array`: 32-bit IEEE floating point number array.
  *     - `Float64Array`: 64-bit IEEE floating point number array.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -35,13 +38,13 @@ import copyProperties from './copy-properties';
  * @private
  * @author Haixing Hu
  */
-function cloneTypedArray(source, options, cache) {
+function cloneTypedArray(source, depth, options, cache) {
   // the TypedArray provides a copy constructor
   const result = new source.constructor(source);
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  copyProperties(source, result, options, cache);
+  copyProperties(source, result, depth, options, cache);
   return result;
 }
 

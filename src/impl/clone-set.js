@@ -15,6 +15,9 @@ import copyProperties from './copy-properties';
  *
  * @param {Set} source
  *     The source set.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -24,16 +27,16 @@ import copyProperties from './copy-properties';
  * @private
  * @author Haixing Hu
  */
-function cloneSet(source, options, cache) {
+function cloneSet(source, depth, options, cache) {
   // eslint-disable-next-line no-undef
   const result = new Set();
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  copyProperties(source, result, options, cache);
+  copyProperties(source, result, depth, options, cache);
   // copy all items in the set
   for (const value of source) {
-    const newValue = cloneImpl(value, '', options, cache);
+    const newValue = cloneImpl(value, '', depth + 1, options, cache);
     result.add(newValue);
   }
   return result;

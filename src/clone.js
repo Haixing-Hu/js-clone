@@ -61,6 +61,13 @@ import DEFAULT_CLONE_OPTIONS from './default-clone-options';
  *   has a `toJSON()` method, the cloning algorithm will use the `toJSON()` method
  *   of the source object to generate the target object. The default value of this
  *   option is `false`.
+ * - `skipRootToJSON: boolean` - If this options and the option `useToJSON` are
+ *   both set to `true`, and the source object has a `toJSON()` method, the
+ *   cloning algorithm will use the result of the `toJSON()` method as the result
+ *   of the cloning if and only if the source object is not the root object of
+ *   the cloning process. This option is very useful when implementing the
+ *   `toJSON()` method of a class with the `clone()` function, since it could
+ *   avoid infinite recursion. The default value of this option is `false`.
  *
  * Usage examples:
  * ```js
@@ -89,7 +96,7 @@ function clone(source, options = {}) {
   // Note that we only store certain values, like Arrays or plain object.
   const cache = new WeakMap();
   options = { ...DEFAULT_CLONE_OPTIONS, ...options };
-  return cloneImpl(source, '', options, cache);
+  return cloneImpl(source, '', 0, options, cache);
 }
 
 export default clone;

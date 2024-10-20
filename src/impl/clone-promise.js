@@ -14,6 +14,9 @@ import copyProperties from './copy-properties';
  *
  * @param {Promise} source
  *     The source promise.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -23,13 +26,13 @@ import copyProperties from './copy-properties';
  * @private
  * @author Haixing Hu
  */
-function clonePromise(source, options, cache) {
+function clonePromise(source, depth, options, cache) {
   // eslint-disable-next-line no-undef
   const result = new Promise(source.then.bind(source));
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  copyProperties(source, result, options, cache);
+  copyProperties(source, result, depth, options, cache);
   return result;
 }
 

@@ -115,6 +115,19 @@ const DEFAULT_CLONE_OPTIONS = {
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
    */
   useToJSON: false,
+
+  /**
+   * If this options and the option `useToJSON` are both set to `true`, and the
+   * source object has a `toJSON()` method, the cloning algorithm will use the
+   * result of the `toJSON()` method as the result of the cloning if and only if
+   * the source object is not the root object of the cloning process.
+   *
+   * This option is very useful when implementing the `toJSON()` method of a
+   * class with the `clone()` function, since it could avoid infinite recursion.
+   *
+   * The default value of this option is `false`.
+   */
+  skipRootToJSON: false,
 };
 
 export default DEFAULT_CLONE_OPTIONS;

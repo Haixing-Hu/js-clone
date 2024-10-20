@@ -104,4 +104,44 @@ describe('clone with `useToJSON` option', () => {
       gender: 'MALE',
     });
   });
+
+  test('customized class, with toJSON() method defined with clone()', () => {
+    class Gender {
+      constructor(value) {
+        this.value = value;
+      }
+
+      toJSON() {
+        return this.value;
+      }
+    }
+    class Customized {
+      constructor(value) {
+        this.value = value;
+        this.gender = new Gender('MALE');
+      }
+
+      toJSON() {
+        const cloneOptions = {
+          includeAccessor: false,
+          includeNonEnumerable: false,
+          includeReadonly: true,
+          includeNonConfigurable: true,
+          convertNaming: false,
+          pojo: true,
+          disableHooks: true,
+          useToJSON: true,
+          skipRootToJSON: true,
+        };
+        return clone(this, cloneOptions);
+      }
+    }
+    const original = new Customized('hello');
+    const cloned = clone(original, { useToJSON: true });
+    expect(cloned).toBeInstanceOf(Object);
+    expect(cloned).toEqual({
+      value: 'hello',
+      gender: 'MALE',
+    });
+  });
 });

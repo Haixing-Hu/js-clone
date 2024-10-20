@@ -34,6 +34,9 @@ function createCustomizedObject(source, options) {
  *
  * @param {object} source
  *     The source object.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {object} options
  *     Options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -43,10 +46,10 @@ function createCustomizedObject(source, options) {
  * @private
  * @author Haixing Hu
  */
-function cloneCustomizedObject(source, options, cache) {
+function cloneCustomizedObject(source, depth, options, cache) {
   const target = createCustomizedObject(source, options);
   cache.set(source, target);
-  copyProperties(source, target, options, cache);
+  copyProperties(source, target, depth, options, cache);
   return target;
 }
 

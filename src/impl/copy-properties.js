@@ -29,15 +29,17 @@ import isEmpty from './is-empty';
  *     The source object.
  * @param {object} target
  *     The target object.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
  *     The object cache used to prevent circular references.
  * @see https://v2.vuejs.org/v2/guide/reactivity.html
- * @private
  * @author Haixing Hu
  */
-function copyProperties(source, target, options, cache) {
+function copyProperties(source, target, depth, options, cache) {
   const sourceKeys = Reflect.ownKeys(source);
   for (const sourceKey of sourceKeys) {
     const descriptor = Object.getOwnPropertyDescriptor(source, sourceKey);
@@ -64,7 +66,7 @@ function copyProperties(source, target, options, cache) {
     if (options.removeEmptyFields && isEmpty(value)) {
       delete target[targetKey];
     } else {
-      target[targetKey] = cloneImpl(value, sourceKey, options, cache); // recursive call
+      target[targetKey] = cloneImpl(value, sourceKey, depth + 1, options, cache); // recursive call
     }
   }
 }

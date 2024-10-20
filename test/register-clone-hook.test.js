@@ -67,7 +67,7 @@ describe('clone built-in arguments object', () => {
         ++personHookCalls;
         const result = new Person();
         const cache = new WeakMap();
-        copyProperties(obj, result, options, cache);
+        copyProperties(obj, result, 0, options, cache);
         return result;
       }
       return null;

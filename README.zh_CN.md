@@ -31,8 +31,8 @@
   - [clone(source, [options])](#clone)
   - [registerCloneHook(hook)](#register-clone-hook)
   - [unregisterCloneHook(hook)](#unregister-clone-hook)
-  - [cloneImpl(source, options, cache)](#clone-impl)
-  - [copyProperties(source, target, options, cache)](#copy-properties)
+  - [cloneImpl(source, depth, options, cache)](#clone-impl)
+  - [copyProperties(source, target, depth, options, cache)](#copy-properties)
 - [示例](#examples)
   - [深度克隆对象](#clone)
   - [克隆算法选项](#clone-with-options)
@@ -107,8 +107,12 @@ expect(copy2.credential).toBeInstanceOf(Credential);
     此选项的默认值为`false`。
   - `disableHooks: boolean` - 如果此选项设置为 `true`，克隆算法将禁用克隆钩子函数。
     此选项的默认值为 `false`。
-  - `useToJSON: boolean` - 如果此选项设置为 `true`，并且源对象具有 `toJSON()` 方法，
-    克隆算法将使用源对象的 `toJSON()` 方法生成目标对象。此选项的默认值为 `false`。
+  - `useToJSON: boolean` - 如果该选项设置为 `true`，并且源对象具有 `toJSON()` 方法，
+    克隆算法将使用源对象的 `toJSON()` 方法作为克隆的结果。此选项的默认值为 `false`。
+  - `skipRootToJSON: boolean` - 如果该选项和 `useToJSON` 选项都设置为 `true`，并且源
+    对象具有 `toJSON()` 方法，克隆算法只有在源对象不是克隆过程的根对象时，才会使用 `toJSON()`
+    方法的结果作为克隆结果。当使用 `clone()` 函数实现类或对象的 `toJSON()` 方法时，该选项
+    非常有用，因为它可以避免无限递归。此选项的默认值为 `false`。
 
 克隆函数支持对 JavaScript 内置对象的克隆，包括但不限于 primitive 类型、数组、`Map`、`Set`等。
 具体的支持如下：
@@ -151,20 +155,22 @@ expect(copy2.credential).toBeInstanceOf(Credential);
 
 - `hook: function` - 要注销的钩子函数，其形式和参数与 [registerCloneHook()](#register-clone-hook) 相同。
 
-### <span id="clone-impl">cloneImpl(source, options, cache)</span>
+### <span id="clone-impl">cloneImpl(source, depth, options, cache)</span>
 
 实现了具体的`clone` 算法。这是一个内部函数，可用于实现自定义的克隆钩子函数。
 
 - `source: any` - 待克隆的对象。
+- `depth: number` - 当前克隆的深度。根对象的深度为 0。
 - `options: object` - 克隆算法的选项。
 - `cache: WeakMap` - 用于防止循环引用的对象缓存。
 
-### <span id="copy-properties">copyProperties(source, target, options, cache)</span>
+### <span id="copy-properties">copyProperties(source, target, depth, options, cache)</span>
 
 将源对象的属性复制到目标对象。这是一个内部函数，可用于实现自定义的克隆钩子函数。
 
 - `source: any` - 源对象。
 - `target: any` - 目标对象。
+- `depth: number` - 当前克隆的深度。根对象的深度为 0。
 - `options: object` - 克隆算法的选项。
 - `cache: WeakMap` - 用于防止循环引用的对象缓存。
 

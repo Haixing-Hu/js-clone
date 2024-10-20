@@ -15,6 +15,9 @@ import copyProperties from './copy-properties';
  * @param {Error} source
  *     The source `Error` object, which can be an instance of any subclass of
  *     `Error`.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -24,7 +27,7 @@ import copyProperties from './copy-properties';
  * @private
  * @author Haixing Hu
  */
-function cloneError(source, options, cache) {
+function cloneError(source, depth, options, cache) {
   const result = new source.constructor(source.message);
   // add to the cache to avoid circular references
   cache.set(source, result);
@@ -46,10 +49,10 @@ function cloneError(source, options, cache) {
   }
   // deep clone the `cause` of the source if necessary
   if (source.cause) {
-    result.cause = cloneError(source.cause, options, cache);  // recursive call
+    result.cause = cloneError(source.cause, depth + 1, options, cache);  // recursive call
   }
   // copy other monkey patched properties
-  copyProperties(source, result, options, cache);     // involve recursive call
+  copyProperties(source, result, depth, options, cache);     // involve recursive call
   return result;
 }
 

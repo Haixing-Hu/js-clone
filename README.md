@@ -42,8 +42,8 @@ This library has the following features which is not supported by the built-in
     - [clone(source, [options])](#clone)
     - [registerCloneHook(hook)](#register-clone-hook)
     - [unregisterCloneHook(hook)](#unregister-clone-hook)
-    - [cloneImpl(source, options, cache)](#clone-impl)
-    - [copyProperties(source, target, options, cache)](#copy-properties)
+    - [cloneImpl(source, depth, options, cache)](#clone-impl)
+    - [copyProperties(source, target, depth options, cache)](#copy-properties)
 - [Examples](#examples)
     - [Deep Cloning Objects](#clone-object)
     - [Cloning with Options](#clone-with-options)
@@ -133,8 +133,16 @@ Deep clones a value or object.
       is `false`.
     - `useToJSON: boolean` - If this options is set to `true`, and the source object
       has a `toJSON()` method, the cloning algorithm will use the `toJSON()` method
-      of the source object to generate the target object. The default value of this
+      of the source object as the result of the cloning. The default value of this
       option is `false`.
+    - `skipRootToJSON: boolean` - If this options and the option `useToJSON` are 
+      both set to `true`, and the source object has a `toJSON()` method, the 
+      cloning algorithm will use the result of the `toJSON()` method as the
+      result of the cloning if and only if the source object is not the root
+      object of the cloning process. This option is very useful when implementing
+      the `toJSON()` method of a class or a object using the `clone()` function,
+      since it could avoid infinite recursion. The default value of this option
+      is `false`.
 
 The clone function supports cloning customized objects as well as JavaScript 
 built-in values and objects, including but not limited to primitive types, 
@@ -195,22 +203,26 @@ Unregisters a custom object cloning hook function.
 - `hook: function` - The hook function to unregister, in the same form and
   parameters as [registerCloneHook()](#register-clone-hook).
 
-### <span id="clone-impl">cloneImpl(source, options, cache)</span>
+### <span id="clone-impl">cloneImpl(source, depth, options, cache)</span>
 
 Implements the specific `clone` algorithm. This is an internal used function that 
 can be used to implement custom clone hook functions.
 
 - `source: any` - The object to be cloned.
+- `depth: number` - The current depth of the cloning algorithm. The depth of the
+  root object is 0.
 - `options: object` - Options for the cloning algorithm.
 - `cache: WeakMap` - Object cache used to prevent circular references.
 
-### <span id="copy-properties">copyProperties(source, target, options, cache)</span>
+### <span id="copy-properties">copyProperties(source, target, depth, options, cache)</span>
 
 Copies properties from the source object to the target object. This is an
 internal used function that can be used to implement custom clone hook functions.
 
 - `source: any` - The source object.
 - `target: any` - The target object.
+- `depth: number` - The current depth of the cloning algorithm. The depth of the
+  root object is 0.
 - `options: object` - Options for the cloning algorithm.
 - `cache: WeakMap` - Object cache used to prevent circular references.
 

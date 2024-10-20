@@ -15,6 +15,9 @@ import copyProperties from './copy-properties';
  * @param {Object} source
  *     The source object, which must be a built-in primitive-wrapper object, i.e.,
  *     an instance of `Boolean`, `Number`, or `String`.
+ * @param {number} depth
+ *     The current depth of the source object in the cloning process.
+ *     The depth of the root object is 0.
  * @param {Object} options
  *     The options of the cloning algorithm.
  * @param {WeakMap} cache
@@ -25,7 +28,7 @@ import copyProperties from './copy-properties';
  * @private
  * @author Haixing Hu
  */
-function clonePrimitiveWrapperObject(source, options, cache) {
+function clonePrimitiveWrapperObject(source, depth, options, cache) {
   // Note that a `Boolean` object cannot be used to copy construct a cloned copy.
   // For example:
   //    x = new Boolean(false);
@@ -37,7 +40,7 @@ function clonePrimitiveWrapperObject(source, options, cache) {
   // add to the cache to avoid circular references
   cache.set(source, result);
   // copy other monkey patched properties
-  copyProperties(source, result, options, cache);     // involve recursive call
+  copyProperties(source, result, depth, options, cache);     // involve recursive call
   return result;
 }
 
