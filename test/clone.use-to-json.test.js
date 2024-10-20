@@ -144,4 +144,58 @@ describe('clone with `useToJSON` option', () => {
       gender: 'MALE',
     });
   });
+
+  test('customized class, with toJSON() method defined with clone(), should call toJSON with options', () => {
+    const cloneOptions = {
+      includeAccessor: false,
+      includeNonEnumerable: false,
+      includeReadonly: true,
+      includeNonConfigurable: true,
+      pojo: true,
+      disableHooks: true,
+      useToJSON: true,
+      skipRootToJSON: true,
+    };
+    class Child {
+      firstChildField = 'first-child-field';
+
+      secondChildField = 'second-child-field';
+
+      toJSON(key, options) {
+        return clone(this, {
+          ...cloneOptions,
+          ...options,
+        });
+      }
+    }
+    class Parent {
+      firstField = 'first-field';
+
+      secondField = new Child();
+
+      toJSON(key, options) {
+        return clone(this, {
+          ...cloneOptions,
+          ...options,
+        });
+      }
+    }
+    const original = new Parent();
+    const cloned = clone(original, {
+      pojo: true,
+      useToJSON: true,
+      skipRootToJSON: true,
+      convertNaming: true,
+      sourceNamingStyle: 'LOWER_CAMEL',
+      targetNamingStyle: 'LOWER_UNDERSCORE',
+    });
+    expect(cloned).toBeInstanceOf(Object);
+    expect(cloned).toEqual({
+      first_field: 'first-field',
+      second_field: {
+        first_child_field: 'first-child-field',
+        second_child_field: 'second-child-field',
+      },
+    });
+  });
 });

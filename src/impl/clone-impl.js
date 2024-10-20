@@ -55,7 +55,7 @@ function shouldUseToJSON(source, depth, options) {
  */
 function cloneImpl(source, key, depth, options, cache) {
   if (shouldUseToJSON(source, depth, options)) {
-    return source.toJSON(key);
+    return source.toJSON(key, options);
   }
   const info = typeInfo(source);
   switch (info.type) {
