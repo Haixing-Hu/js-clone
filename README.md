@@ -1,6 +1,6 @@
-# @haixing_hu/clone
+# @qubit-ltd/clone
 
-[![npm package](https://img.shields.io/npm/v/@haixing_hu/clone.svg)](https://npmjs.com/package/@haixing_hu/clone)
+[![npm package](https://img.shields.io/npm/v/@qubit-ltd/clone.svg)](https://npmjs.com/package/@qubit-ltd/clone)
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![中文文档](https://img.shields.io/badge/文档-中文版-blue.svg)](README.zh_CN.md)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Haixing-Hu/js-clone/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/Haixing-Hu/js-clone/tree/master)
@@ -60,11 +60,11 @@ so it is necessary to install them first.
 
 Install via npm:
 ```bash
-npm install @babel/runtime @haixing_hu/naming-style @haixing_hu/type-detect @haixing_hu/typeinfo @haixing_hu/clone
+npm install @babel/runtime @qubit-ltd/naming-style @qubit-ltd/type-detect @qubit-ltd/typeinfo @qubit-ltd/clone
 ```
 Or install via `yarn`:
 ```bash
-yarn add @babel/runtime @haixing_hu/naming-style @haixing_hu/type-detect @haixing_hu/typeinfo @haixing_hu/clone
+yarn add @babel/runtime @qubit-ltd/naming-style @qubit-ltd/type-detect @qubit-ltd/typeinfo @qubit-ltd/clone
 ```
 
 ## <span id="usage">Usage</span>
@@ -233,7 +233,7 @@ internal used function that can be used to implement custom clone hook functions
 The following code example demonstrates how to deeply clone an object, which can
 be a simple object or an instance of a custom class.
 ```js
-import clone from '@haixing_hu/clone';
+import clone from '@qubit-ltd/clone';
 
 const obj1 = { a: 1, b: { c: 2 } };
 const copy1 = clone(obj1);
@@ -356,7 +356,7 @@ The following code example demonstrates how to clone with custom naming
 conversion rules. For specific options, refer to the [API Documentation](#api).
 
 ```js
-import clone from '@haixing_hu/clone';
+import clone from '@qubit-ltd/clone';
 
 class Credential {
   type = '';
@@ -410,7 +410,7 @@ the same. See `NamingStyle.of()` function for more details.
 ### <span id="customize-clone-hook">Customizing Clone Behavior</span>
 
 ```js
-import { registerCloneHook, clone } from '@haixing_hu/clone';
+import { registerCloneHook, clone } from '@qubit-ltd/clone';
 
 function customCloneHook(info, obj, options) {
   if (info.constructor === MyCustomClass) {
@@ -446,11 +446,11 @@ open an issue or submit a pull request in the [GitHub repository].
 
 - [Haixing Hu](https://github.com/haixing-hu)
 
-[naming-style]: https://npmjs.com/package/@haixing_hu/naming-style
-[type-detect]: https://npmjs.com/package/@haixing_hu/type-detect
-[typeinfo]: https://npmjs.com/package/@haixing_hu/typeinfo
-[typeInfo()]: https://npmjs.com/package/@haixing_hu/typeinfo
-[clone]: https://npmjs.com/package/@haixing_hu/clone
+[naming-style]: https://npmjs.com/package/@qubit-ltd/naming-style
+[type-detect]: https://npmjs.com/package/@qubit-ltd/type-detect
+[typeinfo]: https://npmjs.com/package/@qubit-ltd/typeinfo
+[typeInfo()]: https://npmjs.com/package/@qubit-ltd/typeinfo
+[clone]: https://npmjs.com/package/@qubit-ltd/clone
 [structuredClone()]: https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 [arguments]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
 [Intl]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
