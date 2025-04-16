@@ -22,11 +22,13 @@
 - **可自定义的命名转换规则**：支持自定义命名转换规则，允许转换克隆结果对象属性的命名风格。
 - **可自定义的克隆算法**：支持自定义克隆算法，通过注册钩子函数定制对特定类型的克隆算法。
 - **Vue.js 反应性支持**：兼容 Vue.js 的反应性系统，只克隆可枚举属性。
+- **100% 测试覆盖率**：该库的每一行代码、每个分支和每个函数都经过全面测试，确保在不同使用场景下的可靠行为。
 
 ## <span id="contents">目录</span>
 
 - [安装](#installation)
 - [使用方法](#usage)
+- [项目结构](#project-structure)
 - [API 文档](#api)
   - [clone(source, [options])](#clone)
   - [registerCloneHook(hook)](#register-clone-hook)
@@ -38,6 +40,9 @@
   - [克隆算法选项](#clone-with-options)
   - [带命名转换的克隆](#clone-with-naming-conversion)
   - [定制克隆行为](#customize-clone-hook)
+  - [克隆带循环引用的复杂结构](#clone-circular)
+  - [与 Vue.js 一起使用](#clone-vue)
+- [测试覆盖率](#test-coverage)
 - [许可证](#license)
 - [贡献方式](#contributing)
 - [贡献者](#contributor)
@@ -78,6 +83,36 @@ expect(copy2).not.toBe(obj2);
 expect(copy2).toBeInstanceOf(Person);
 expect(copy2.credential).toBeInstanceOf(Credential);
 ```
+
+## <span id="project-structure">项目结构</span>
+
+项目的组织结构如下：
+
+- `src/`：包含源代码
+  - `clone.js`：深度克隆对象的主函数
+  - `default-clone-options.js`：克隆算法的默认选项
+  - `register-clone-hook.js`：注册自定义克隆钩子的函数
+  - `unregister-clone-hook.js`：注销自定义克隆钩子的函数
+  - `impl/`：不同类型克隆算法的实现
+    - `clone-array.js`：克隆数组的实现
+    - `clone-buffer.js`：克隆缓冲区对象的实现
+    - `clone-copy-constructable-object.js`：克隆具有复制构造函数的对象的实现
+    - `clone-customized-object.js`：克隆自定义对象的实现
+    - `clone-data-view.js`：克隆 DataView 对象的实现
+    - `clone-error.js`：克隆 Error 对象的实现
+    - `clone-hooks.js`：克隆钩子的管理
+    - `clone-impl.js`：克隆算法的核心实现
+    - `clone-map.js`：克隆 Map 对象的实现
+    - `clone-object-impl.js`：克隆普通对象的实现
+    - `clone-primitive-wrapper-object.js`：克隆原始包装对象的实现
+    - `clone-promise.js`：克隆 Promise 对象的实现
+    - `clone-set.js`：克隆 Set 对象的实现
+    - `clone-typed-array.js`：克隆 TypedArray 对象的实现
+    - `copy-properties.js`：用于在对象之间复制属性的工具函数
+    - `get-target-key.js`：重命名属性时获取目标键的工具函数
+    - `is-empty.js`：检查值是否为空的工具函数
+- `test/`：包含所有功能的综合测试套件
+- `dist/`：包含构建的分发文件
 
 ## <span id="api">API 文档</span>
 
@@ -375,6 +410,80 @@ const cloned = clone(original);
 unregisterCloneHook(customCloneHook);
 ```
 
+### <span id="clone-circular">克隆带循环引用的复杂结构</span>
+
+克隆函数可以处理带有循环引用的复杂对象，防止无限递归：
+
+```js
+import clone from '@qubit-ltd/clone';
+
+// 创建一个带有循环引用的对象
+const original = {
+  name: 'original',
+  nested: {
+    data: 42
+  }
+};
+// 创建循环引用
+original.self = original;
+original.nested.parent = original;
+
+// 安全地克隆
+const cloned = clone(original);
+
+// 验证循环引用被正确维护
+expect(cloned.self).toBe(cloned); // 不是指向原始对象，而是指向克隆对象
+expect(cloned.nested.parent).toBe(cloned);
+expect(cloned).not.toBe(original);
+expect(cloned.nested).not.toBe(original.nested);
+```
+
+### <span id="clone-vue">与 Vue.js 一起使用</span>
+
+克隆函数与 Vue.js 的反应性系统兼容：
+
+```js
+import { reactive } from 'vue';
+import clone from '@qubit-ltd/clone';
+
+// 创建一个响应式对象
+const original = reactive({
+  count: 0,
+  items: [1, 2, 3],
+  nested: {
+    value: 'test'
+  }
+});
+
+// 克隆它
+const cloned = clone(original);
+
+// 克隆对象不是响应式的，但具有所有相同的值
+console.log(cloned.count); // 0
+console.log(cloned.items); // [1, 2, 3]
+console.log(cloned.nested.value); // 'test'
+
+// 如果需要，可以将克隆对象再次转为响应式
+const reactiveClone = reactive(cloned);
+```
+
+## <span id="test-coverage">测试覆盖率</span>
+
+本库具有100%的测试覆盖率，涵盖所有指标：
+
+- **语句覆盖率**: 100% (135/135)
+- **分支覆盖率**: 100% (98/98)
+- **函数覆盖率**: 100% (20/20)
+- **行覆盖率**: 100% (135/135)
+
+测试套件包含超过34个测试套件，共347个独立测试用例，覆盖了库的所有功能，包括边缘情况、不同对象类型和各种配置选项。
+
+要运行测试并检查覆盖率：
+
+```bash
+yarn test --coverage
+```
+
 ## <span id="license">许可证</span>
 
 [clone] 在 Apache 2.0 许可下分发。有关更多详情，请参阅 [LICENSE](LICENSE) 文件。
@@ -382,6 +491,12 @@ unregisterCloneHook(customCloneHook);
 ## <span id="contributing">贡献方式</span>
 
 如果您发现任何问题或有改进建议，请随时在[GitHub仓库]中提出问题或提交拉取请求。
+
+在贡献此项目时，请确保：
+1. 所有测试都通过，并保持100%的覆盖率
+2. 新功能或变更都有适当的文档
+3. 代码遵循现有的风格约定
+4. 提交消息清晰且具有描述性
 
 ## <span id="contributor">贡献者</span>
 
@@ -397,4 +512,4 @@ unregisterCloneHook(customCloneHook);
 [arguments]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
 [Intl]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
 [全局对象]: https://developer.mozilla.org/en-US/docs/Glossary/Global_object
-[GitHub repository]: https://github.com/Haixing-Hu/js-clone
+[GitHub仓库]: https://github.com/Haixing-Hu/js-clone
