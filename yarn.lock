@@ -1894,8 +1894,8 @@ __metadata:
     "@qubit-ltd/jsdoc-minami": "npm:^1.5.2"
     "@qubit-ltd/naming-style": "npm:^1.3.6"
     "@qubit-ltd/rollup-builder": "npm:^1.8.9"
-    "@qubit-ltd/type-detect": "npm:^1.2.5"
-    "@qubit-ltd/typeinfo": "npm:^3.1.6"
+    "@qubit-ltd/type-detect": "npm:^2.2.0"
+    "@qubit-ltd/typeinfo": "npm:^3.3.0"
     "@rollup/plugin-alias": "npm:^5.1.1"
     "@rollup/plugin-babel": "npm:^6.0.4"
     "@rollup/plugin-commonjs": "npm:^28.0.3"
@@ -1924,7 +1924,7 @@ __metadata:
   peerDependencies:
     "@babel/runtime": ^7.26.0
     "@qubit-ltd/naming-style": ^1.3.6
-    "@qubit-ltd/typeinfo": ^3.1.6
+    "@qubit-ltd/typeinfo": ^3.3.0
   languageName: unknown
   linkType: soft
 
@@ -1979,22 +1979,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@qubit-ltd/type-detect@npm:^1.2.5":
-  version: 1.2.5
-  resolution: "@qubit-ltd/type-detect@npm:1.2.5"
+"@qubit-ltd/type-detect@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@qubit-ltd/type-detect@npm:2.2.0"
   peerDependencies:
     "@babel/runtime": ^7.26.0
-  checksum: 10c0/ba7c5fc49007f21af65478dcc61ff05adf1cbebb19e71ddc21e1355bb58003bf7a84091a7ce7483e9b5ccf2e32edce85ab57bb69ff637f97b6e582c559a45996
+  checksum: 10c0/ce775cc7e33cbd6e83c8f034a81f23368ee5f82fdabcaabb2ca574b0f881224e6a9489c6b508adedd35be33f5f06663014eb868a8c897a57c86ba269e885a7db
   languageName: node
   linkType: hard
 
-"@qubit-ltd/typeinfo@npm:^3.1.6":
-  version: 3.1.6
-  resolution: "@qubit-ltd/typeinfo@npm:3.1.6"
+"@qubit-ltd/typeinfo@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@qubit-ltd/typeinfo@npm:3.3.0"
   peerDependencies:
     "@babel/runtime": ^7.26.0
-    "@qubit-ltd/type-detect": ^1.2.4
-  checksum: 10c0/31b8afa688d25edbb0ad63c8cf531237445a045aec8484cb05c35dfc6db21080006d43959d388616f74032a4850ed650b1290a302ad39af65347fbad8c0a37f2
+    "@qubit-ltd/type-detect": ^2.2.0
+  checksum: 10c0/18b0b88579388769d6076e00e7f50ff50a7a022b2bf8864821b396f3dd26a5454d2567645216c72d594df3c18a65a7fdcee5b2c41cfb8bbea9d4e86190cc0b00
   languageName: node
   linkType: hard
 

@@ -17,7 +17,7 @@ import {
   INTL_PLURALRULES_EXISTS,
   INTL_RELATIVETIMEFORMAT_EXISTS,
   INTL_SEGMENTER_EXISTS,
-} from '@qubit-ltd/type-detect';
+} from '@qubit-ltd/type-detect/src/feature-detect';
 import clone from '../src';
 
 /**

@@ -1,4 +1,11 @@
 ////////////////////////////////////////////////////////////////////////////////
+//
+//    Copyright (c) 2022 - 2023.
+//    Haixing Hu, Qubit Co. Ltd.
+//
+//    All rights reserved.
+//
+////////////////////////////////////////////////////////////////////////////////
 import {
   ARRAY_ITERATOR_EXISTS,
   INT8ARRAY_EXISTS,
@@ -7,14 +14,7 @@ import {
   REGEXP_ITERATOR_EXISTS,
   SET_ITERATOR_EXISTS,
   STRING_ITERATOR_EXISTS,
-} from '@qubit-ltd/type-detect';
-//
-//    Copyright (c) 2022 - 2023.
-//    Haixing Hu, Qubit Co. Ltd.
-//
-//    All rights reserved.
-//
-////////////////////////////////////////////////////////////////////////////////
+} from '@qubit-ltd/type-detect/src/feature-detect';
 import clone from '../src';
 
 /**

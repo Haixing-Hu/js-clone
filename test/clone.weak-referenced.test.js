@@ -10,7 +10,7 @@ import {
   WEAKMAP_EXISTS,
   WEAKREF_EXISTS,
   WEAKSET_EXISTS,
-} from '@qubit-ltd/type-detect';
+} from '@qubit-ltd/type-detect/src/feature-detect';
 import clone from '../src';
 
 /* eslint-disable no-undef */

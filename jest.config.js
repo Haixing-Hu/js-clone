@@ -12,13 +12,19 @@ module.exports = {
   testMatch: ['**/test/**/*.test.js'],
   testEnvironment: 'jest-environment-jsdom-global',
   testEnvironmentOptions: {
-    customExportConditions: ["node", "node-addons"],
+    customExportConditions: ['node', 'node-addons'],
   },
   moduleFileExtensions: ['js'],
+  moduleNameMapper: {
+    '^@qubit-ltd/type-detect/src/(.*)$': '<rootDir>/node_modules/@qubit-ltd/type-detect/src/$1',
+  },
   transform: {
     '\\.js$': 'babel-jest',
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/(?!@qubit-ltd/type-detect)',
+    '<rootDir>/dist/',
+  ],
   setupFilesAfterEnv: [
     'jest-extended/all',
   ],

@@ -11,7 +11,7 @@ import {
   FILE_EXISTS,
   FILE_LIST_EXISTS,
   FILE_READER_EXISTS,
-} from '@qubit-ltd/type-detect';
+} from '@qubit-ltd/type-detect/src/feature-detect';
 import clone from '../src';
 
 describe('clone File API objects', () => {

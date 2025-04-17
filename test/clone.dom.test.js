@@ -6,7 +6,7 @@
 //    All rights reserved.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import { DOM_NODE_EXISTS } from '@qubit-ltd/type-detect';
+import { DOM_NODE_EXISTS } from '@qubit-ltd/type-detect/src/feature-detect';
 import clone from '../src';
 
 describe('clone DOM objects', () => {
